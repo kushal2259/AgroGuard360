@@ -91,6 +91,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  
+  /* Ensure we override default cursors on buttons and links too, so they use the custom cursor */
+  a, button, [role="button"], input, select, textarea, .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
 ::selection {
   background: var(--color-gold-500);
   color: var(--color-charcoal-950);
