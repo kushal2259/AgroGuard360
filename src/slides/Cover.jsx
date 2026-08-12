@@ -1,51 +1,90 @@
+import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Cpu, Eye, BarChart3, Navigation } from 'lucide-react'
 
-function TopographicBackground() {
+function MatrixBackground() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    
+    let resizeTimer
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(resize, 100)
+    }
+    window.addEventListener('resize', handleResize)
+
+    const chars = '01ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ'.split('')
+    const fontSize = 16
+    let columns = Math.ceil(window.innerWidth / fontSize)
+    let drops = Array.from({ length: columns }).map(() => Math.random() * -100)
+
+    let animationId
+    let lastDrawTime = 0
+    const fps = 25
+    const frameInterval = 1000 / fps
+
+    const draw = (currentTime) => {
+      animationId = requestAnimationFrame(draw)
+      
+      const deltaTime = currentTime - lastDrawTime
+      if (deltaTime < frameInterval) return
+      
+      lastDrawTime = currentTime - (deltaTime % frameInterval)
+
+      // Dynamic column adjustment if resized
+      const currentCols = Math.ceil(canvas.width / fontSize)
+      if (currentCols > drops.length) {
+        drops = drops.concat(Array.from({ length: currentCols - drops.length }).map(() => Math.random() * -50))
+      }
+
+      // Fade effect
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.1)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      ctx.font = `${fontSize}px monospace`
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)]
+        
+        // 10% chance for gold, 90% for green
+        const isGold = Math.random() > 0.9
+        // 5% chance for bright white leader
+        const isLeader = Math.random() > 0.95
+
+        ctx.fillStyle = isLeader ? '#ffffff' : isGold ? '#e8b955' : '#5fb87e'
+
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0
+        }
+
+        drops[i]++
+      }
+    }
+    
+    animationId = requestAnimationFrame(draw)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      cancelAnimationFrame(animationId)
+    }
+  }, [])
+
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#050606]">
-      {/* Topo Layer 1: Green contours */}
-      <motion.div 
-        animate={{ 
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{ duration: 60, repeat: Infinity, ease: 'linear', repeatType: 'mirror' }}
-        className="absolute -inset-[100%] opacity-30"
-        style={{
-          backgroundImage: 'repeating-radial-gradient(circle at 0% 0%, transparent 0, transparent 40px, rgba(95,184,126,0.3) 40px, rgba(95,184,126,0.3) 41px)',
-          backgroundSize: '100vw 100vh'
-        }}
-      />
-      {/* Topo Layer 2: Gold contours */}
-      <motion.div 
-        animate={{ 
-          backgroundPosition: ['100% 0%', '0% 100%'],
-        }}
-        transition={{ duration: 80, repeat: Infinity, ease: 'linear', repeatType: 'mirror' }}
-        className="absolute -inset-[100%] opacity-20 mix-blend-screen"
-        style={{
-          backgroundImage: 'repeating-radial-gradient(circle at 100% 0%, transparent 0, transparent 60px, rgba(232,185,85,0.2) 60px, rgba(232,185,85,0.2) 61px)',
-          backgroundSize: '120vw 120vh'
-        }}
-      />
-      {/* Topo Layer 3: Base contour field */}
-      <motion.div 
-        animate={{ 
-          backgroundPosition: ['50% 100%', '50% 0%'],
-        }}
-        transition={{ duration: 100, repeat: Infinity, ease: 'linear', repeatType: 'mirror' }}
-        className="absolute -inset-[100%] opacity-15 mix-blend-screen"
-        style={{
-          backgroundImage: 'repeating-radial-gradient(circle at 50% 100%, transparent 0, transparent 50px, rgba(95,184,126,0.2) 50px, rgba(95,184,126,0.2) 51px)',
-          backgroundSize: '150vw 150vh'
-        }}
-      />
-      
-      {/* Dark Vignette to keep focus on the center and UI */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050606_100%)] pointer-events-none" />
-      
-      {/* Noise overlay for premium texture */}
-      <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgibm9pc2VGaWx0ZXIpIi8+PC9zdmc+')] pointer-events-none" />
+    <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a]">
+      <canvas ref={canvasRef} className="absolute inset-0 opacity-40 mix-blend-screen" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_100%)] pointer-events-none" />
     </div>
   )
 }
@@ -75,7 +114,7 @@ function FeaturePill({ icon: Icon, label }) {
 export default function Cover({ onOpenDemo, onNext }) {
   return (
     <div className="relative h-full w-full bg-[#050606] overflow-hidden text-white selection:bg-field-500/30">
-      <TopographicBackground />
+      <MatrixBackground />
 
       {/* Grid Overlay for depth */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_40%,transparent_100%)] pointer-events-none" />
