@@ -1,39 +1,48 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Cpu, Eye, BarChart3, Navigation } from 'lucide-react'
 
-function LiquidBackground() {
+function TopographicBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a]">
+    <div className="absolute inset-0 overflow-hidden bg-[#050606]">
+      {/* Topo Layer 1: Green contours */}
       <motion.div 
         animate={{ 
-          scale: [1, 1.2, 1],
-          rotate: [0, 90, 0],
-          x: ['-10%', '10%', '-10%'],
-          y: ['-5%', '5%', '-5%']
+          backgroundPosition: ['0% 0%', '100% 100%'],
         }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-1/2 -left-1/4 w-[150%] h-[150%] bg-field-500/30 rounded-full mix-blend-screen filter blur-[120px]"
+        transition={{ duration: 60, repeat: Infinity, ease: 'linear', repeatType: 'mirror' }}
+        className="absolute -inset-[100%] opacity-30"
+        style={{
+          backgroundImage: 'repeating-radial-gradient(circle at 0% 0%, transparent 0, transparent 40px, rgba(95,184,126,0.3) 40px, rgba(95,184,126,0.3) 41px)',
+          backgroundSize: '100vw 100vh'
+        }}
       />
+      {/* Topo Layer 2: Gold contours */}
       <motion.div 
         animate={{ 
-          scale: [1, 1.5, 1],
-          rotate: [0, -90, 0],
-          x: ['10%', '-10%', '10%'],
-          y: ['5%', '-5%', '5%']
+          backgroundPosition: ['100% 0%', '0% 100%'],
         }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -bottom-1/2 -right-1/4 w-[150%] h-[150%] bg-gold-500/20 rounded-full mix-blend-screen filter blur-[150px]"
+        transition={{ duration: 80, repeat: Infinity, ease: 'linear', repeatType: 'mirror' }}
+        className="absolute -inset-[100%] opacity-20 mix-blend-screen"
+        style={{
+          backgroundImage: 'repeating-radial-gradient(circle at 100% 0%, transparent 0, transparent 60px, rgba(232,185,85,0.2) 60px, rgba(232,185,85,0.2) 61px)',
+          backgroundSize: '120vw 120vh'
+        }}
       />
+      {/* Topo Layer 3: Base contour field */}
       <motion.div 
         animate={{ 
-          scale: [1.2, 1, 1.2],
-          rotate: [0, 180, 0],
-          x: ['0%', '20%', '0%'],
-          y: ['-10%', '10%', '-10%']
+          backgroundPosition: ['50% 100%', '50% 0%'],
         }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 left-1/4 w-[100%] h-[100%] bg-blue-500/20 rounded-full mix-blend-screen filter blur-[150px]"
+        transition={{ duration: 100, repeat: Infinity, ease: 'linear', repeatType: 'mirror' }}
+        className="absolute -inset-[100%] opacity-15 mix-blend-screen"
+        style={{
+          backgroundImage: 'repeating-radial-gradient(circle at 50% 100%, transparent 0, transparent 50px, rgba(95,184,126,0.2) 50px, rgba(95,184,126,0.2) 51px)',
+          backgroundSize: '150vw 150vh'
+        }}
       />
+      
+      {/* Dark Vignette to keep focus on the center and UI */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050606_100%)] pointer-events-none" />
       
       {/* Noise overlay for premium texture */}
       <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgibm9pc2VGaWx0ZXIpIi8+PC9zdmc+')] pointer-events-none" />
@@ -65,8 +74,8 @@ function FeaturePill({ icon: Icon, label }) {
 
 export default function Cover({ onOpenDemo, onNext }) {
   return (
-    <div className="relative h-full w-full bg-[#0a0a0a] overflow-hidden text-white selection:bg-field-500/30">
-      <LiquidBackground />
+    <div className="relative h-full w-full bg-[#050606] overflow-hidden text-white selection:bg-field-500/30">
+      <TopographicBackground />
 
       {/* Grid Overlay for depth */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_40%,transparent_100%)] pointer-events-none" />
