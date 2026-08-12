@@ -7,28 +7,28 @@ import ScanPulse from './ScanPulse.jsx'
 // Parametric patrol path: an elongated figure-eight that sweeps over the
 // crop field, expressed as a bottom-edge x position + a depth fraction so it
 // composites correctly with the field's perspective projection.
-function flightSample(t) {
+function flightSample(t, timeOffset = 0, xOffset = 0, depthOffset = 0) {
   const speed = 0.16
-  const a = t * speed
-  const xBottom = VP.x + 640 * Math.sin(a)
-  const depth = 0.34 + 0.24 * Math.sin(a * 2)
+  const a = (t + timeOffset) * speed
+  const xBottom = VP.x + xOffset + 640 * Math.sin(a)
+  const depth = Math.max(0, Math.min(1, 0.34 + depthOffset + 0.24 * Math.sin(a * 2)))
   const { x, y, scale } = projectHero(xBottom, depthEase(depth))
 
   const da = 0.01
-  const nextXBottom = VP.x + 640 * Math.sin(a + da)
-  const nextDepth = 0.34 + 0.24 * Math.sin((a + da) * 2)
+  const nextXBottom = VP.x + xOffset + 640 * Math.sin(a + da)
+  const nextDepth = Math.max(0, Math.min(1, 0.34 + depthOffset + 0.24 * Math.sin((a + da) * 2)))
   const next = projectHero(nextXBottom, depthEase(nextDepth))
 
   const dx = next.x - x
   const dy = next.y - y
   const heading = (Math.atan2(dy, dx) * 180) / Math.PI
   const bank = Math.max(-22, Math.min(22, (dx > 0 ? 1 : -1) * Math.abs(dy) * 0.9))
-  const bob = Math.sin(t * 1.8) * 4
+  const bob = Math.sin((t + timeOffset) * 1.8) * 4
 
   return { x, y: y - 90 * scale + bob, scale, heading, bank }
 }
 
-export default function Drone({ active = true, className = '' }) {
+export default function Drone({ active = true, className = '', timeOffset = 0, xOffset = 0, depthOffset = 0, baseScale = 1.5 }) {
   const x = useMotionValue(800)
   const y = useMotionValue(300)
   const scale = useMotionValue(0.6)
@@ -40,14 +40,14 @@ export default function Drone({ active = true, className = '' }) {
   const [scanPos, setScanPos] = useState({ x: 800, y: 600 })
 
   useLoopFrame((_dt, t) => {
-    const s = flightSample(t)
+    const s = flightSample(t, timeOffset, xOffset, depthOffset)
     x.set(s.x)
     y.set(s.y)
     scale.set(s.scale)
     bank.set(s.bank)
     shadowX.set(s.x)
     shadowY.set(s.y + 92 * s.scale)
-    shadowScale.set(s.scale)
+    shadowScale.set(s.scale * baseScale)
   }, active)
 
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function Drone({ active = true, className = '' }) {
       )}
 
       <motion.g style={{ x, y, rotate: bank, scale }}>
-        <g transform="scale(1.5)">
+        <g transform={`scale(${baseScale})`}>
           <ellipse cx={0} cy={2} rx={9} ry={9} fill="#0c0f0e" opacity={0.5} className="blur-[1px]" />
         {[
           [-24, -14],
