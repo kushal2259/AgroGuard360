@@ -25,7 +25,7 @@ export default function Cover({ onOpenDemo, onNext }) {
     <div className="relative h-full w-full bg-charcoal-950">
       <FarmScene variant="hero" className="h-full w-full">
         {/* Foreground Large Drone */}
-        <Drone timeOffset={0} depthOffset={-0.34} xOffset={200} baseScale={3.2} />
+        <Drone timeOffset={0} depthOffset={-0.34} xOffset={200} baseScale={1.8} />
         {/* Background Left Drone */}
         <Drone timeOffset={15} depthOffset={0.55} xOffset={-500} baseScale={0.8} />
         {/* Background Right Drone */}
