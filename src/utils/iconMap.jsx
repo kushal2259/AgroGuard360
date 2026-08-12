@@ -1,0 +1,61 @@
+import {
+  Leaf,
+  Bug,
+  Droplets,
+  Eye,
+  IndianRupee,
+  Plane,
+  BrainCircuit,
+  Bot,
+  Radio,
+  LineChart,
+  ClipboardCheck,
+  User,
+  Lightbulb,
+  Flame,
+  TrendingUp,
+  Repeat,
+  Ruler,
+  Building2,
+  MonitorPlay,
+  Cpu,
+  CircuitBoard,
+  Warehouse,
+  Users,
+  Sprout,
+  Factory,
+} from 'lucide-react'
+
+export const ICONS = {
+  Leaf,
+  Bug,
+  Droplets,
+  Eye,
+  IndianRupee,
+  Plane,
+  BrainCircuit,
+  Bot,
+  Radio,
+  LineChart,
+  ClipboardCheck,
+  User,
+  Lightbulb,
+  Flame,
+  TrendingUp,
+  Repeat,
+  Ruler,
+  Building2,
+  MonitorPlay,
+  Cpu,
+  CircuitBoard,
+  Warehouse,
+  Users,
+  Sprout,
+  Factory,
+}
+
+export function Icon({ name, ...props }) {
+  const Cmp = ICONS[name]
+  if (!Cmp) return null
+  return <Cmp {...props} />
+}
