@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
 import { slides } from '../data/slides.js'
 
 const modules = [
@@ -64,7 +65,7 @@ export default function MegaMenu({ onGoTo }) {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
-      <div className="relative z-50 flex items-center justify-between px-8 py-4 backdrop-blur-md bg-charcoal-950/80 border-b border-field-300/20">
+      <div className="relative z-50 flex items-center justify-between px-6 md:px-8 py-4 backdrop-blur-md bg-charcoal-950/80 border-b border-field-300/20">
         <div className="font-display text-xl font-bold text-mist-100 cursor-pointer" onClick={handleLogoClick}>
           AGROGUARD <span className="text-gold-400">360</span>
         </div>
@@ -84,6 +85,13 @@ export default function MegaMenu({ onGoTo }) {
             Modules & Technology
           </button>
         </nav>
+
+        <button 
+          className="md:hidden text-mist-300 hover:text-mist-100 transition-colors"
+          onClick={() => setActiveMenu(!activeMenu)}
+        >
+          {activeMenu ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
       <AnimatePresence>
@@ -92,14 +100,24 @@ export default function MegaMenu({ onGoTo }) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-charcoal-900 border-b border-field-300/20 shadow-2xl"
+            className="absolute top-full left-0 right-0 bg-charcoal-900 border-b border-field-300/20 shadow-2xl max-h-[85vh] overflow-y-auto"
             onMouseLeave={() => setActiveMenu(false)}
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 p-6 md:p-8 max-w-7xl mx-auto">
+              {/* Mobile-only presentation link */}
+              <div className="sm:hidden col-span-1 border-b border-field-300/10 pb-4 mb-2">
+                <button 
+                  onClick={handlePresentationClick}
+                  className="w-full text-left font-display text-lg font-bold text-mist-100 hover:text-gold-400 transition-colors"
+                >
+                  Return to Presentation →
+                </button>
+              </div>
+
               {modules.map(mod => (
                 <div 
                   key={mod.id} 
-                  className="group cursor-pointer p-4 -m-4 rounded-xl hover:bg-charcoal-800 transition-colors"
+                  className="group cursor-pointer p-3 md:p-4 -mx-3 md:-m-4 rounded-xl hover:bg-charcoal-800 transition-colors"
                   onClick={() => handleModuleClick(mod.id)}
                 >
                   <h3 className="font-display text-lg font-bold text-mist-100 mb-2 group-hover:text-gold-400 transition-colors">
