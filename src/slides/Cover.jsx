@@ -1,8 +1,10 @@
 import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Cpu, Eye, BarChart3, Navigation } from 'lucide-react'
+import FarmScene from '../components/scene/FarmScene.jsx'
+import Drone from '../components/scene/Drone.jsx'
 
-function MatrixBackground() {
+function SimpleRain() {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -23,57 +25,45 @@ function MatrixBackground() {
     }
     window.addEventListener('resize', handleResize)
 
-    const chars = '01ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ'.split('')
-    const fontSize = 16
-    let columns = Math.ceil(window.innerWidth / fontSize)
-    let drops = Array.from({ length: columns }).map(() => Math.random() * -100)
+    // Pre-calculate rain drops
+    const drops = Array.from({ length: 200 }).map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      speed: Math.random() * 15 + 15,
+      length: Math.random() * 20 + 10,
+      opacity: Math.random() * 0.3 + 0.1
+    }))
 
     let animationId
-    let lastDrawTime = 0
-    const fps = 25
-    const frameInterval = 1000 / fps
-
-    const draw = (currentTime) => {
-      animationId = requestAnimationFrame(draw)
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       
-      const deltaTime = currentTime - lastDrawTime
-      if (deltaTime < frameInterval) return
-      
-      lastDrawTime = currentTime - (deltaTime % frameInterval)
-
-      // Dynamic column adjustment if resized
-      const currentCols = Math.ceil(canvas.width / fontSize)
-      if (currentCols > drops.length) {
-        drops = drops.concat(Array.from({ length: currentCols - drops.length }).map(() => Math.random() * -50))
-      }
-
-      // Fade effect
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.1)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      ctx.font = `${fontSize}px monospace`
+      ctx.lineWidth = 1.5
+      ctx.lineCap = 'round'
 
       for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)]
+        const drop = drops[i]
         
-        // 10% chance for gold, 90% for green
-        const isGold = Math.random() > 0.9
-        // 5% chance for bright white leader
-        const isLeader = Math.random() > 0.95
+        ctx.strokeStyle = `rgba(200, 220, 255, ${drop.opacity})` // Slightly blue-ish white rain
+        ctx.beginPath()
+        ctx.moveTo(drop.x, drop.y)
+        // Add a slight angle to the rain (wind effect)
+        ctx.lineTo(drop.x + drop.length * 0.1, drop.y + drop.length)
+        ctx.stroke()
 
-        ctx.fillStyle = isLeader ? '#ffffff' : isGold ? '#e8b955' : '#5fb87e'
+        drop.y += drop.speed
+        drop.x += drop.speed * 0.1
 
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize)
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0
+        // Reset drop to top if it falls off screen
+        if (drop.y > canvas.height) {
+          drop.y = -drop.length
+          drop.x = Math.random() * canvas.width
         }
-
-        drops[i]++
       }
+      animationId = requestAnimationFrame(draw)
     }
     
-    animationId = requestAnimationFrame(draw)
+    draw()
 
     return () => {
       window.removeEventListener('resize', handleResize)
@@ -82,9 +72,30 @@ function MatrixBackground() {
   }, [])
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a]">
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-40 mix-blend-screen" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_100%)] pointer-events-none" />
+    <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-10 opacity-70" />
+  )
+}
+
+function FarmBackgroundWithRain() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#050606]">
+      {/* Background Layer with Drones */}
+      <div className="absolute inset-0 opacity-50 scale-105">
+        <FarmScene variant="hero" className="h-full w-full">
+          <Drone timeOffset={0} depthOffset={-0.34} xOffset={200} baseScale={1.8} />
+          <Drone timeOffset={15} depthOffset={0.55} xOffset={-500} baseScale={0.8} />
+          <Drone timeOffset={35} depthOffset={0.5} xOffset={450} baseScale={1.1} />
+        </FarmScene>
+      </div>
+
+      {/* Dark Overlay for contrast so the UI pops */}
+      <div className="absolute inset-0 bg-charcoal-950/70" />
+
+      {/* The Rain Effect */}
+      <SimpleRain />
+      
+      {/* Dark Vignette to keep focus on the center and UI */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050606_100%)] pointer-events-none z-20" />
     </div>
   )
 }
@@ -114,7 +125,7 @@ function FeaturePill({ icon: Icon, label }) {
 export default function Cover({ onOpenDemo, onNext }) {
   return (
     <div className="relative h-full w-full bg-[#050606] overflow-hidden text-white selection:bg-field-500/30">
-      <MatrixBackground />
+      <FarmBackgroundWithRain />
 
       {/* Grid Overlay for depth */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_40%,transparent_100%)] pointer-events-none" />
