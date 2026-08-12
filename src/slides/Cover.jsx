@@ -1,130 +1,170 @@
-import { useEffect } from 'react'
-import { motion, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion'
-import { ChevronRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowRight, Cpu, Eye, BarChart3, Navigation } from 'lucide-react'
 
-// Creates slow-moving, glowing ambient particles in the background
-function AmbientParticles() {
-  const particles = Array.from({ length: 30 })
+function LiquidBackground() {
   return (
-    <div className="absolute inset-0 pointer-events-none z-0">
-      {particles.map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{ 
-            y: 0, 
-            opacity: 0,
-            x: 0
-          }}
-          animate={{
-            y: Math.random() * -200 - 50,
-            opacity: [0, Math.random() * 0.4 + 0.1, 0],
-            x: Math.random() * 100 - 50
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            delay: Math.random() * 10,
-            ease: "linear"
-          }}
-          className="absolute rounded-full mix-blend-screen"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: Math.random() * 3 + 1 + 'px',
-            height: Math.random() * 3 + 1 + 'px',
-            backgroundColor: i % 3 === 0 ? '#e8b955' : '#5fb87e',
-            boxShadow: `0 0 15px ${i % 3 === 0 ? '#e8b955' : '#5fb87e'}`
-          }}
-        />
-      ))}
+    <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a]">
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          rotate: [0, 90, 0],
+          x: ['-10%', '10%', '-10%'],
+          y: ['-5%', '5%', '-5%']
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -top-1/2 -left-1/4 w-[150%] h-[150%] bg-field-500/30 rounded-full mix-blend-screen filter blur-[120px]"
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.5, 1],
+          rotate: [0, -90, 0],
+          x: ['10%', '-10%', '10%'],
+          y: ['5%', '-5%', '5%']
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -bottom-1/2 -right-1/4 w-[150%] h-[150%] bg-gold-500/20 rounded-full mix-blend-screen filter blur-[150px]"
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1.2, 1, 1.2],
+          rotate: [0, 180, 0],
+          x: ['0%', '20%', '0%'],
+          y: ['-10%', '10%', '-10%']
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/4 left-1/4 w-[100%] h-[100%] bg-blue-500/20 rounded-full mix-blend-screen filter blur-[150px]"
+      />
+      
+      {/* Noise overlay for premium texture */}
+      <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgibm9pc2VGaWx0ZXIpIi8+PC9zdmc+')] pointer-events-none" />
     </div>
   )
 }
 
-export default function Cover({ onNext }) {
-  const mouseX = useMotionValue(typeof window !== 'undefined' ? window.innerWidth / 2 : 0)
-  const mouseY = useMotionValue(typeof window !== 'undefined' ? window.innerHeight / 2 : 0)
+function GlassCard({ children, delay, className = "" }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={`bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden ${className}`}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
-  // Use a spring to make the spotlight movement buttery smooth and slightly trailing the cursor
-  const springConfig = { damping: 30, stiffness: 200, mass: 0.5 }
-  const smoothX = useSpring(mouseX, springConfig)
-  const smoothY = useSpring(mouseY, springConfig)
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
-
-  // The massive typography component rendered twice (once for outline, once for image mask)
-  const TitleText = () => (
-    <div className="flex flex-col items-center text-center font-display leading-[0.85] tracking-tighter w-full uppercase">
-      <div className="text-[15vw] font-black w-full text-center">AGROGUARD</div>
-      <div className="text-[15vw] font-black w-full text-center text-gold-400">360</div>
+function FeaturePill({ icon: Icon, label }) {
+  return (
+    <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-5 py-2.5 backdrop-blur-md hover:bg-white/10 transition-colors cursor-pointer">
+      <Icon size={16} className="text-field-300" />
+      <span className="font-mono text-xs text-white uppercase tracking-wider">{label}</span>
     </div>
   )
+}
 
+export default function Cover({ onOpenDemo, onNext }) {
   return (
-    <div 
-      className="relative h-full w-full bg-[#020202] overflow-hidden cursor-none flex flex-col items-center justify-center group"
-      onClick={onNext}
-    >
-      <AmbientParticles />
+    <div className="relative h-full w-full bg-[#0a0a0a] overflow-hidden text-white selection:bg-field-500/30">
+      <LiquidBackground />
 
-      {/* LAYER 1: THE OUTLINE TEXT (Always visible) */}
-      <div 
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-        style={{ 
-          WebkitTextStroke: '1px rgba(255, 255, 255, 0.08)',
-          color: 'transparent'
-        }}
-      >
-        <TitleText />
-      </div>
+      {/* Grid Overlay for depth */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_40%,transparent_100%)] pointer-events-none" />
 
-      {/* LAYER 2: THE REVEAL TEXT (Visible only inside spotlight) */}
-      <motion.div 
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
-        style={{
-          backgroundImage: "url('/farm_bg.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          clipPath: useMotionTemplate`circle(25vw at ${smoothX}px ${smoothY}px)`
-        }}
-      >
-        <TitleText />
-      </motion.div>
-
-      {/* LAYER 3: SUBTITLE & CTA */}
-      <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 pointer-events-none z-30">
+      <div className="relative z-10 flex h-full w-full flex-col justify-center px-6 md:px-16 pt-20 max-w-[1600px] mx-auto">
         
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
-          className="mb-8 font-mono text-sm md:text-base text-field-200/60 uppercase tracking-[0.4em] text-center max-w-lg px-6"
-        >
-          Sense <span className="mx-2 text-gold-400/50">|</span> 
-          Fly <span className="mx-2 text-gold-400/50">|</span> 
-          Automate <span className="mx-2 text-gold-400/50">|</span> 
-          Optimize
-        </motion.div>
+        <div className="grid lg:grid-cols-[1fr_0.8fr] gap-12 lg:gap-16 items-center h-full">
+          
+          {/* Left Column: Hero Typography */}
+          <div className="flex flex-col items-start justify-center">
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="inline-flex items-center gap-3 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 backdrop-blur-md mb-8"
+            >
+              <span className="w-2 h-2 rounded-full bg-field-400 animate-pulse shadow-[0_0_10px_rgba(95,184,126,1)]" />
+              <span className="font-mono text-xs uppercase tracking-widest text-white">System V4 Online</span>
+            </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 2 }}
-          className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.3em] text-mist-400/80 bg-charcoal-900/50 backdrop-blur-md px-6 py-3 rounded-full border border-mist-500/10 group-hover:border-gold-400/30 group-hover:text-gold-300 transition-colors"
-        >
-          Click anywhere to initialize <ChevronRight size={14} className="animate-pulse text-gold-400" />
-        </motion.div>
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-6xl md:text-8xl lg:text-[7.5rem] font-medium leading-[0.95] tracking-tight mb-8"
+            >
+              The Future of <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-field-300 via-gold-200 to-white">
+                Farming.
+              </span>
+            </motion.h1>
 
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-xl md:text-2xl text-white/60 font-light max-w-xl leading-relaxed mb-12"
+            >
+              AGROGUARD 360 combines autonomous drones, ground robotics, and neural networks to revolutionize crop management.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap items-center gap-4"
+            >
+              <button
+                onClick={onNext}
+                className="group flex items-center justify-center gap-3 bg-white text-black px-8 py-4 rounded-full font-mono text-sm font-bold uppercase tracking-wider transition-all hover:scale-105 hover:bg-field-100 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+              >
+                Explore Platform <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+              
+              <button
+                onClick={onOpenDemo}
+                className="group flex items-center justify-center gap-3 bg-white/10 border border-white/20 text-white px-8 py-4 rounded-full font-mono text-sm font-bold uppercase tracking-wider backdrop-blur-md transition-all hover:bg-white/20 hover:border-white/40"
+              >
+                View Live Demo
+              </button>
+            </motion.div>
+
+          </div>
+
+          {/* Right Column: Holographic Glass UI */}
+          <div className="hidden lg:flex flex-col gap-6 w-full relative">
+            
+            {/* Main Premium Card */}
+            <GlassCard delay={0.4} className="p-10 relative group hover:border-white/30 transition-colors cursor-pointer" onClick={onNext}>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex justify-between items-start mb-16 relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-field-400 to-field-600 flex items-center justify-center shadow-[0_0_20px_rgba(95,184,126,0.4)]">
+                  <Cpu size={24} className="text-white" />
+                </div>
+                <div className="font-mono text-xs uppercase tracking-widest text-white/50 border border-white/10 px-3 py-1 rounded-full">
+                  Active Sync
+                </div>
+              </div>
+              <h3 className="font-display text-4xl font-medium text-white mb-2 relative z-10">Neural Core</h3>
+              <p className="text-white/60 relative z-10">Processing 14.2 TB of crop imaging data in real-time.</p>
+            </GlassCard>
+
+            {/* Grid of smaller feature pills */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap gap-4"
+            >
+              <FeaturePill icon={Eye} label="Computer Vision" />
+              <FeaturePill icon={Navigation} label="Path Optimization" />
+              <FeaturePill icon={BarChart3} label="Yield Analytics" />
+            </motion.div>
+
+          </div>
+
+        </div>
       </div>
     </div>
   )
