@@ -163,7 +163,7 @@ export default function Cover({ onOpenDemo, onNext }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-xl md:text-2xl text-white/60 font-light max-w-xl leading-relaxed mb-12"
+              className="text-xl md:text-2xl text-white/90 font-light max-w-xl leading-relaxed mb-12 drop-shadow-md"
             >
               AGROGUARD 360 combines autonomous drones, ground robotics, and neural networks to revolutionize crop management.
             </motion.p>
@@ -201,12 +201,12 @@ export default function Cover({ onOpenDemo, onNext }) {
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-field-400 to-field-600 flex items-center justify-center shadow-[0_0_20px_rgba(95,184,126,0.4)]">
                   <Cpu size={24} className="text-white" />
                 </div>
-                <div className="font-mono text-xs uppercase tracking-widest text-white/50 border border-white/10 px-3 py-1 rounded-full">
+                <div className="font-mono text-xs uppercase tracking-widest text-white/90 border border-white/20 px-3 py-1 rounded-full bg-black/20">
                   Active Sync
                 </div>
               </div>
               <h3 className="font-display text-4xl font-medium text-white mb-2 relative z-10">Neural Core</h3>
-              <p className="text-white/60 relative z-10">Processing 14.2 TB of crop imaging data in real-time.</p>
+              <p className="text-white/90 relative z-10 drop-shadow-md">Processing 14.2 TB of crop imaging data in real-time.</p>
             </GlassCard>
 
             {/* Grid of smaller feature pills */}
