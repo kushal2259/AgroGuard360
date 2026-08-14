@@ -45,6 +45,13 @@ const modules = [
     shortName: 'Mercatus',
     description: 'Calculates water usage, fertilizer cost, robot/drone cost, crop savings, and ROI.',
     features: ['Economic Value Analysis', 'Cost Comparison', 'ROI Estimation']
+  },
+  {
+    id: 'project-status',
+    title: 'STATUS — Project Progress',
+    shortName: 'Status',
+    description: 'Track the current development progress and active engineering tasks for all AGROGUARD 360 components.',
+    features: ['Development Tracking', 'Engineering Goals', 'Component Milestones']
   }
 ]
 

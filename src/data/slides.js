@@ -13,6 +13,7 @@ import TechverseModules from '../slides/TechverseModules.jsx'
 import BusinessModel from '../slides/BusinessModel.jsx'
 import Future from '../slides/Future.jsx'
 import Final from '../slides/Final.jsx'
+import ProjectStatus from '../slides/ProjectStatus.jsx'
 
 export const slides = [
   { id: 'cover', title: 'Cover', Component: Cover },
@@ -30,4 +31,5 @@ export const slides = [
   { id: 'business-model', title: 'Business Model', Component: BusinessModel },
   { id: 'future', title: 'Future', Component: Future },
   { id: 'final', title: 'Final', Component: Final },
+  { id: 'project-status', title: 'Project Status', Component: ProjectStatus },
 ]
