@@ -5,7 +5,6 @@ import { slides } from './data/slides.js'
 import Navigation from './components/Navigation.jsx'
 import LiveDemo from './components/LiveDemo.jsx'
 import MegaMenu from './components/MegaMenu.jsx'
-import CustomCursor from './components/CustomCursor.jsx'
 
 const slideVariants = {
   enter: (direction) => ({
@@ -64,7 +63,6 @@ export default function App() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-charcoal-950 text-mist-100">
-      <CustomCursor />
       <MegaMenu onGoTo={goTo} />
 
       <div className="absolute inset-0 pt-[72px]">

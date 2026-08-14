@@ -88,18 +88,7 @@ body {
   font-family: var(--font-body);
   color: var(--color-mist-100);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@media (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  
-  /* Ensure we override default cursors on buttons and links too, so they use the custom cursor */
-  a, button, [role="button"], input, select, textarea, .cursor-pointer {
-    cursor: none !important;
-  }
+    -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
