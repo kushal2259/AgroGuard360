@@ -100,11 +100,16 @@ export default function MegaMenu({ onGoTo }) {
             <h3 className="font-display text-3xl text-white mb-6">Core Capabilities</h3>
             <ul className="space-y-4">
               {mod.features.map((feat, i) => (
-                <li key={i} className="flex items-center gap-4 text-white text-lg">
-                  <div className="w-8 h-8 rounded-full bg-field-500/20 flex items-center justify-center text-field-400 font-mono text-sm border border-field-500/30">
+                <li 
+                  key={i} 
+                  onClick={() => handleModuleClick(mod.id)}
+                  className="flex items-center gap-4 text-white text-lg cursor-pointer group hover:text-gold-400 transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-full bg-field-500/20 flex items-center justify-center text-field-400 font-mono text-sm border border-field-500/30 group-hover:bg-gold-500/20 group-hover:border-gold-500/30 group-hover:text-gold-400 transition-all">
                     0{i+1}
                   </div>
                   <span className="font-medium tracking-wide">{feat}</span>
+                  <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </li>
               ))}
             </ul>
@@ -204,33 +209,36 @@ export default function MegaMenu({ onGoTo }) {
                     
                     <button 
                       onMouseEnter={() => setActiveTab('overview')}
-                      onClick={() => setActiveTab('overview')}
-                      className={`flex flex-col items-start text-left p-4 rounded-xl transition-all ${activeTab === 'overview' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}
+                      onClick={() => handleModuleClick(mod.id)}
+                      className={`group flex flex-col items-start text-left p-4 rounded-xl transition-all ${activeTab === 'overview' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}
                     >
-                      <div className={`flex items-center gap-3 font-mono text-sm uppercase tracking-widest mb-1 ${activeTab === 'overview' ? 'text-gold-400' : 'text-mist-200'}`}>
-                        <Info size={16} /> Overview
+                      <div className={`flex items-center justify-between w-full font-mono text-sm uppercase tracking-widest mb-1 ${activeTab === 'overview' ? 'text-gold-400' : 'text-mist-200'}`}>
+                        <div className="flex items-center gap-3"><Info size={16} /> Overview</div>
+                        <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-mist-400" />
                       </div>
                       <span className="text-xs text-mist-500">General description</span>
                     </button>
 
                     <button 
                       onMouseEnter={() => setActiveTab('features')}
-                      onClick={() => setActiveTab('features')}
-                      className={`flex flex-col items-start text-left p-4 rounded-xl transition-all ${activeTab === 'features' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}
+                      onClick={() => handleModuleClick(mod.id)}
+                      className={`group flex flex-col items-start text-left p-4 rounded-xl transition-all ${activeTab === 'features' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}
                     >
-                      <div className={`flex items-center gap-3 font-mono text-sm uppercase tracking-widest mb-1 ${activeTab === 'features' ? 'text-gold-400' : 'text-mist-200'}`}>
-                        <Settings size={16} /> Capabilities
+                      <div className={`flex items-center justify-between w-full font-mono text-sm uppercase tracking-widest mb-1 ${activeTab === 'features' ? 'text-gold-400' : 'text-mist-200'}`}>
+                        <div className="flex items-center gap-3"><Settings size={16} /> Capabilities</div>
+                        <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-mist-400" />
                       </div>
                       <span className="text-xs text-mist-500">Technical features</span>
                     </button>
 
                     <button 
                       onMouseEnter={() => setActiveTab('status')}
-                      onClick={() => setActiveTab('status')}
-                      className={`flex flex-col items-start text-left p-4 rounded-xl transition-all ${activeTab === 'status' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}
+                      onClick={() => handleModuleClick(mod.id)}
+                      className={`group flex flex-col items-start text-left p-4 rounded-xl transition-all ${activeTab === 'status' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}
                     >
-                      <div className={`flex items-center gap-3 font-mono text-sm uppercase tracking-widest mb-1 ${activeTab === 'status' ? 'text-gold-400' : 'text-mist-200'}`}>
-                        <Activity size={16} /> What We Are Doing
+                      <div className={`flex items-center justify-between w-full font-mono text-sm uppercase tracking-widest mb-1 ${activeTab === 'status' ? 'text-gold-400' : 'text-mist-200'}`}>
+                        <div className="flex items-center gap-3"><Activity size={16} /> What We Are Doing</div>
+                        <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-mist-400" />
                       </div>
                       <span className="text-xs text-mist-500">Project engineering status</span>
                     </button>

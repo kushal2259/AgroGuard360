@@ -25,13 +25,43 @@ export default function Mercatus() {
             <MetricCard label="Expected ROI" value="31" unit="%" accent="gold" />
           </div>
 
-          <Panel className="p-5 flex-grow flex flex-col justify-center">
-             <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-mist-500">Project Part</div>
-             <p className="text-sm leading-relaxed text-mist-200">
-               Mercatus connects the technology to the financial impact on the farm.
-               This shows that AGROGUARD 360 is not only about technology — it is designed to demonstrate how technology can create measurable economic value for farmers.
-             </p>
-          </Panel>
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative">
+            {/* 11. MERCATUS — Financial Analytics */}
+            <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">11. Financial Analytics</h4>
+            
+            <div className="mb-4">
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
+              <p className="text-sm text-mist-200">Determines whether AGROGUARD is economically practical.</p>
+            </div>
+
+            <div className="mb-4">
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Parameters Evaluated</span>
+              <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500 grid grid-cols-2">
+                <li>Initial investment</li>
+                <li>Water consumption</li>
+                <li>Labour requirement</li>
+                <li>Energy usage</li>
+                <li>Robot operating cost</li>
+                <li>Drone operating cost</li>
+                <li>Maintenance</li>
+                <li>Est. crop-loss reduction</li>
+              </ul>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Key Formulas</span>
+              
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5 flex flex-col gap-1">
+                <div className="flex gap-2"><span className="text-mist-500 w-24">Water Saved:</span><span>Traditional Usage − AGROGUARD Usage</span></div>
+                <div className="flex gap-2"><span className="text-mist-500 w-24">Labour Saving:</span><span>Traditional Cost − AGROGUARD Cost</span></div>
+                <div className="flex gap-2"><span className="text-mist-500 w-24">Robot Cost:</span><span>Energy + Maintenance + Consumables</span></div>
+                <div className="flex gap-2"><span className="text-mist-500 w-24">Drone Cost:</span><span>Charging + Maintenance + Depreciation</span></div>
+                <div className="flex gap-2 border-t border-white/10 pt-1 mt-1"><span className="text-gold-400 w-24">Net Benefit:</span><span className="text-gold-300">Total Savings − Additional Costs</span></div>
+                <div className="flex gap-2"><span className="text-gold-400 w-24">ROI:</span><span className="text-gold-300">(Net Benefit ÷ Investment) × 100</span></div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <Panel className="flex flex-col justify-center gap-6 p-8">

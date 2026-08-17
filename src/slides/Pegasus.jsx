@@ -97,22 +97,65 @@ export default function Pegasus() {
             <MetricCard label="Area Scanned" value={areaScanned.toFixed(1)} unit="acres" accent="gold" />
             <MetricCard label="Anomalies" value={ANOMALIES.length} accent="danger" />
           </div>
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4 font-mono text-xs text-mist-400 flex-grow flex flex-col justify-center">
-            <div className="mb-2 uppercase tracking-[0.2em] text-mist-500">Function</div>
-            <p className="leading-relaxed text-mist-200 mb-4">
-              Pegasus is the eyes in the sky of AGROGUARD 360. It flies over the farm and captures crop images that are sent to the AI system for analysis.
-            </p>
-            <div className="mb-2 uppercase tracking-[0.2em] text-mist-500">Monitors</div>
-            <ul className="space-y-1 text-mist-300 mb-4">
-               <li>• Crop health</li>
-               <li>• Disease</li>
-               <li>• Dry/water-stressed areas</li>
-               <li>• Pest damage</li>
-            </ul>
-            <div className="mb-2 uppercase tracking-[0.2em] text-mist-500">Workflow</div>
-            <p className="text-gold-300">
-              Fly → Scan → Capture → Locate Problem → Send to AI
-            </p>
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative">
+            
+            {/* 2. PEGASUS — Drone Module */}
+            <div className="mb-6">
+              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">2. Drone Module (Hardware)</h4>
+              
+              <div className="mb-4">
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
+                <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+                  <li>Aerial monitoring.</li>
+                  <li>Covers larger farm areas.</li>
+                  <li>Captures crop images.</li>
+                  <li>Sends images to the AI-processing system.</li>
+                  <li>Provides the initial location/zone information.</li>
+                </ul>
+              </div>
+
+              <div className="mb-4">
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Hardware Specs</span>
+                <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+                  <li>F450-class drone frame.</li>
+                  <li>4 × 2212-class brushless motors & 4 × ESCs.</li>
+                  <li>1045 propellers.</li>
+                  <li>Pixhawk-class flight controller & NEO-M8N GPS.</li>
+                  <li>RGB/Raspberry Pi camera.</li>
+                  <li>3S/4S LiPo battery.</li>
+                  <li>RC transmitter/receiver (Optional SiK 915 MHz).</li>
+                </ul>
+              </div>
+
+              <div>
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Working</span>
+                <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-2 rounded border border-white/5 inline-block">
+                  Drone → Camera → Images → Wireless Transfer → Laptop → BUDDHI
+                </div>
+                <p className="text-xs text-mist-400 mt-2 italic">
+                  * Prototype does not require AI model to run directly on the drone. Pegasus captures; laptop processes.
+                </p>
+              </div>
+            </div>
+
+            {/* 9. COMMUNICATION SYSTEM */}
+            <div className="mb-6">
+              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">9. Communication System</h4>
+              <p className="text-sm text-mist-200 mb-3">Connects the different modules via Wi-Fi, Bluetooth, or software-based data exchange (API/JSON).</p>
+              <div className="font-mono text-[11px] text-field-300 bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
+                <div>[PEGASUS] → Camera Image → Wi-Fi → Laptop → [BUDDHI]</div>
+              </div>
+            </div>
+
+            {/* 10. LOCATION MAPPING */}
+            <div>
+              <h4 className="font-mono text-sm uppercase tracking-widest text-mist-100 mb-3 border-b border-white/10 pb-2">10. Location Mapping</h4>
+              <p className="text-sm text-mist-300 mb-2">Drone image maps to a specific grid coordinate for the robot:</p>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5">
+                Disease detected → Image region → Zone B2 → Grid B2 → Robot target
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

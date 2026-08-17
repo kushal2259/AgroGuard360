@@ -53,20 +53,56 @@ export default function Promethia() {
           </motion.div>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <Panel className="p-4">
-            <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-mist-500">Function</div>
-            <p className="text-sm leading-relaxed text-mist-200">
-              When Pegasus and Buddhi identify multiple problem areas, Promethia calculates an efficient route for Talos to visit them.
-            </p>
-          </Panel>
-          <Panel className="p-4 flex-grow">
-             <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-mist-500">Impact</div>
-             <p className="text-sm leading-relaxed text-mist-200 mb-4">
-               Instead of the robot randomly travelling around the farm, this demonstrates the use of pathfinding, graph algorithms and route optimization in a real agricultural problem.
-             </p>
-             <MetricCard label="Efficiency Gain" value="47" unit="%" accent="gold" />
-          </Panel>
+        <div className="flex flex-col gap-4 overflow-y-auto scrollbar-none h-full pb-8 pr-2">
+          
+          {/* 5. PROMETHIA — Path Optimization Module */}
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 h-full">
+            <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">5. Path Optimization Module</h4>
+            
+            <div className="mb-4">
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
+              <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+                <li>Determines how TALOS reaches the selected target.</li>
+                <li>Uses a farm grid/map to calculate an efficient route.</li>
+                <li>Considers obstacles and movement costs.</li>
+                <li>Recalculates route if conditions change.</li>
+              </ul>
+            </div>
+
+            <div className="mb-4">
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Algorithm: A* (A-star)</span>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5 space-y-1">
+                <p>f(n) = g(n) + h(n)</p>
+                <p className="text-mist-500">g(n) = cost from starting point</p>
+                <p className="text-mist-500">h(n) = estimated cost to destination</p>
+                <p className="text-mist-500">f(n) = total estimated cost</p>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Grid & Costs</span>
+              <p className="text-sm text-mist-200 mb-2">
+                Normal cell → cost 1.<br/>
+                Difficult terrain → higher cost.<br/>
+                Obstacle → blocked/infinite cost.
+              </p>
+              <div className="font-mono text-[11px] text-field-300 bg-charcoal-950/50 p-2 rounded border border-white/5 inline-block">
+                TALOS Pos → Farm Grid → A* → Zone B2
+              </div>
+            </div>
+
+            <div>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Main Logic Flow</span>
+              <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-2 rounded border border-white/5 space-y-2">
+                <div>BUDDHI = What is wrong?</div>
+                <div>Priority = What to handle first?</div>
+                <div>PROMETHIA = How do we reach it?</div>
+                <div>TALOS = Execute the route.</div>
+              </div>
+            </div>
+
+          </div>
+          
         </div>
       </div>
     </SlideShell>
