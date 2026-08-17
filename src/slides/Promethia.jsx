@@ -62,43 +62,38 @@ export default function Promethia() {
             <div className="mb-4">
               <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
               <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                <li>Determines how TALOS reaches the selected target.</li>
-                <li>Uses a farm grid/map to calculate an efficient route.</li>
-                <li>Considers obstacles and movement costs.</li>
-                <li>Recalculates route if conditions change.</li>
+                <li>Determines the most energy-efficient path for TALOS to reach targets.</li>
+                <li>Utilizes a discretized grid model of the farm field.</li>
+                <li>Actively avoids permanent and dynamic farm obstacles.</li>
+                <li>Recalculates pathways on-the-fly when ground sensors report path blockage.</li>
               </ul>
             </div>
 
             <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Algorithm: A* (A-star)</span>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5 space-y-1">
-                <p>f(n) = g(n) + h(n)</p>
-                <p className="text-mist-500">g(n) = cost from starting point</p>
-                <p className="text-mist-500">h(n) = estimated cost to destination</p>
-                <p className="text-mist-500">f(n) = total estimated cost</p>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Pathfinding: A* (A-star) & Heuristics</span>
+              <p className="text-sm text-mist-200 mb-2">Evaluates grid cells using the core cost function <strong>f(n) = g(n) + h(n)</strong>.</p>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2.5 rounded border border-white/5 space-y-1">
+                <div>g(n) = Cumulative movement cost from start node.</div>
+                <div>h(n) = Estimated distance to target (using <strong>Manhattan Distance</strong>):</div>
+                <div className="text-field-400 text-center py-1 bg-black/30 rounded my-1 font-semibold">h(n) = |x₂ − x₁| + |y₂ − y₁|</div>
               </div>
             </div>
 
             <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Grid & Costs</span>
-              <p className="text-sm text-mist-200 mb-2">
-                Normal cell → cost 1.<br/>
-                Difficult terrain → higher cost.<br/>
-                Obstacle → blocked/infinite cost.
-              </p>
-              <div className="font-mono text-[11px] text-field-300 bg-charcoal-950/50 p-2 rounded border border-white/5 inline-block">
-                TALOS Pos → Farm Grid → A* → Zone B2
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Cost Grid Parameters</span>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
+                <div className="flex justify-between"><span>Normal Soil (dry/compact)</span><span className="text-field-300">Cost: 1.0</span></div>
+                <div className="flex justify-between"><span>Wet/Muddy patch (slippage risk)</span><span className="text-gold-400">Cost: 3.5</span></div>
+                <div className="flex justify-between"><span>Rocky terrain (structural risk)</span><span className="text-orange-400">Cost: 5.0</span></div>
+                <div className="flex justify-between"><span>Permanent Obstacle (fences, trees)</span><span className="text-red-400">Cost: ∞</span></div>
               </div>
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Main Logic Flow</span>
-              <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-2 rounded border border-white/5 space-y-2">
-                <div>BUDDHI = What is wrong?</div>
-                <div>Priority = What to handle first?</div>
-                <div>PROMETHIA = How do we reach it?</div>
-                <div>TALOS = Execute the route.</div>
-              </div>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Dynamic Local Re-routing</span>
+              <p className="text-sm text-mist-200">
+                If the ground robot detects a sudden obstacle via its HC-SR04 sonar, it halts, updates its local memory cost matrix (setting current cell cost to ∞), and Promethia recalculates a new path within <strong>15ms</strong>.
+              </p>
             </div>
 
           </div>

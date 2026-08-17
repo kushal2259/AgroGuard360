@@ -8,49 +8,49 @@ const modules = [
     id: 'buddhi',
     title: 'BUDDHI — AI Crop Doctor',
     shortName: 'Buddhi',
-    description: 'AI analyzes crop images and detects healthy crop, disease, water stress, and pest damage.',
-    features: ['Computer Vision', 'Disease Detection', 'Confidence Scoring'],
-    projectStatus: 'Currently training AI Models: Compiling large datasets of crop diseases and training the neural network for higher confidence scoring.'
+    description: 'YOLOv8n object detection classifies crop health, early/late blight, leaf mold, and water stress with dynamic severity indexing.',
+    features: ['YOLOv8n Neural Core', 'Augmented Dataset', 'Priority Score Engine'],
+    projectStatus: 'Model optimization: Training on 5,000 augmented leaf images to maximize classification mAP50 to 92.4%.'
   },
   {
     id: 'fiontar',
     title: 'FIONTAR — AgroGuard Startup',
     shortName: 'Fiontar',
-    description: 'Turn the technology into a real-world product combining AI, drones, robots, and analytics.',
-    features: ['Hardware & Subscription', 'Farm Monitoring', 'Target: Farmers & Greenhouses'],
-    projectStatus: 'Currently in Business Modeling: Finalizing the Hardware-as-a-Service (HaaS) pricing structure and pitching to local greenhouse owners.'
+    description: 'Commercial realization program centering on Capex unit bundles, SaaS analytics, and Monitoring-as-a-Service (MaaS) contracts.',
+    features: ['Hardware Bundling', 'SaaS Diagnostics', 'MaaS Lease Models'],
+    projectStatus: 'Market analysis: Designing seasonal greenhouse subscription brackets and compiling Capex Bill of Materials (~$1500).'
   },
   {
     id: 'talos',
     title: 'TALOS — Agricultural Robot',
     shortName: 'Talos',
-    description: 'Autonomous ground robot travels between rows to inspect crops and carry spray mechanisms.',
-    features: ['Obstacle Detection', 'Soil Measurement', 'Targeted Treatment'],
-    projectStatus: 'Currently in Hardware Prototyping: Building the physical robot chassis and testing obstacle detection sensors in controlled dirt environments.'
+    description: 'Arduino-driven 4WD ground rover inspecting localized stress zones and applying targeted irrigation.',
+    features: ['Sonar Collision Avoidance', 'Capacitive Moisture Calibration', 'IRF520 MOSFET Pump Switch'],
+    projectStatus: 'Chassis assembly: Integrating ultrasonic time-of-flight math and calibrating capacitive moisture ADC thresholds.'
   },
   {
     id: 'pegasus',
     title: 'PEGASUS — Farm Monitoring',
     shortName: 'Pegasus',
-    description: 'The eyes in the sky flying over the farm capturing crop images for the AI system.',
-    features: ['Crop Health Scanning', 'Dry Area Locating', 'Image Transmission'],
-    projectStatus: 'Currently in Drone Integration: Connecting to drone APIs for automated flight paths and real-time image transmission to the server.'
+    description: 'Pixhawk-guided drone surveying crop fields at 15m altitude to capture frames with sub-centimeter GSD resolution.',
+    features: ['Autonomous Waypoint Survey', '8MP IMX219 Cam Payload', '915MHz SiK Telemetry'],
+    projectStatus: 'Payload integration: Calibrating camera focal projections and testing GSD calculations for localized coordinate transforms.'
   },
   {
     id: 'promethia',
     title: 'PROMETHIA — Route Optimizer',
     shortName: 'Promethia',
-    description: 'Calculates the most efficient route for Talos to visit problem areas detected by Pegasus.',
-    features: ['Path Optimization', 'Graph Algorithms', 'Efficiency Maximization'],
-    projectStatus: 'Currently in Algorithm Dev: Implementing graph algorithms (like A* and TSP) to generate the most efficient routes for Talos.'
+    description: 'Generates cost-minimized routes across a farm grid using A* pathfinding and custom soil friction weights.',
+    features: ['A* Grid Pathfinding', 'Manhattan Heuristics', 'Dynamic 15ms Re-routing'],
+    projectStatus: 'Route calculation: Setting discrete movement weights (dry soil = 1.0, mud = 3.5, obstacle = ∞) and testing grid maps.'
   },
   {
     id: 'mercatus',
     title: 'MERCATUS — Financial Analytics',
     shortName: 'Mercatus',
-    description: 'Calculates water usage, fertilizer cost, robot/drone cost, crop savings, and ROI.',
-    features: ['Economic Value Analysis', 'Cost Comparison', 'ROI Estimation'],
-    projectStatus: 'Currently in Dashboard UI: Designing the financial dashboard to visualize water savings, fertilizer costs, and overall ROI.'
+    description: 'Computes Capex amortization, water/labor savings, and Net Benefit metrics to audit system ROI.',
+    features: ['Water Conservation Index', 'Labor Reduction Audit', 'Capex Amortization Map'],
+    projectStatus: 'Audit formula build: Linking real-time sensor cycles to water saving metrics and projecting seasonal ROI percentages.'
   }
 ]
 

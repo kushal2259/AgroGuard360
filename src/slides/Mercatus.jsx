@@ -30,34 +30,52 @@ export default function Mercatus() {
             <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">11. Financial Analytics</h4>
             
             <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
-              <p className="text-sm text-mist-200">Determines whether AGROGUARD is economically practical.</p>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Economic Feasibility Audit</span>
+              <p className="text-sm text-mist-200">
+                Calculates the operational pay-back period and cost-benefit ratio of deploying AGROGUARD 360 over manual methods.
+              </p>
             </div>
 
             <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Parameters Evaluated</span>
-              <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500 grid grid-cols-2">
-                <li>Initial investment</li>
-                <li>Water consumption</li>
-                <li>Labour requirement</li>
-                <li>Energy usage</li>
-                <li>Robot operating cost</li>
-                <li>Drone operating cost</li>
-                <li>Maintenance</li>
-                <li>Est. crop-loss reduction</li>
-              </ul>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Evaluated Parameters</span>
+              <div className="grid grid-cols-2 gap-3 text-xs text-mist-200 bg-charcoal-950/30 p-3 rounded border border-white/5">
+                <div>• Initial Capex (~$1500)</div>
+                <div>• Water Conserved (liters/hr)</div>
+                <div>• Labor inspection delta (hrs)</div>
+                <div>• Drone Depr. & Charging cost</div>
+                <div>• Robot battery cycles/Opex</div>
+                <div>• Crop loss protection (%)</div>
+              </div>
             </div>
 
             <div className="space-y-2">
               <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Key Formulas</span>
               
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5 flex flex-col gap-1">
-                <div className="flex gap-2"><span className="text-mist-500 w-24">Water Saved:</span><span>Traditional Usage − AGROGUARD Usage</span></div>
-                <div className="flex gap-2"><span className="text-mist-500 w-24">Labour Saving:</span><span>Traditional Cost − AGROGUARD Cost</span></div>
-                <div className="flex gap-2"><span className="text-mist-500 w-24">Robot Cost:</span><span>Energy + Maintenance + Consumables</span></div>
-                <div className="flex gap-2"><span className="text-mist-500 w-24">Drone Cost:</span><span>Charging + Maintenance + Depreciation</span></div>
-                <div className="flex gap-2 border-t border-white/10 pt-1 mt-1"><span className="text-gold-400 w-24">Net Benefit:</span><span className="text-gold-300">Total Savings − Additional Costs</span></div>
-                <div className="flex gap-2"><span className="text-gold-400 w-24">ROI:</span><span className="text-gold-300">(Net Benefit ÷ Investment) × 100</span></div>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 flex flex-col gap-2">
+                <div className="flex gap-2 justify-between">
+                  <span className="text-mist-500">Water Saved:</span>
+                  <span>Usage_Trad − Usage_Agro</span>
+                </div>
+                <div className="flex gap-2 justify-between">
+                  <span className="text-mist-500">Labor Saved:</span>
+                  <span>Hours_Trad − Hours_Agro</span>
+                </div>
+                <div className="flex gap-2 justify-between">
+                  <span className="text-mist-500">Opex_Robot:</span>
+                  <span>Energy + Maintenance + Consumables</span>
+                </div>
+                <div className="flex gap-2 justify-between">
+                  <span className="text-mist-500">Opex_Drone:</span>
+                  <span>Charge Cycle + Parts + Depreciation</span>
+                </div>
+                <div className="flex gap-2 justify-between border-t border-white/10 pt-1.5 mt-1.5">
+                  <span className="text-gold-400 font-bold">Net Benefit:</span>
+                  <span className="text-gold-300">Total Savings − Added Opex</span>
+                </div>
+                <div className="flex gap-2 justify-between">
+                  <span className="text-gold-400 font-bold">ROI (%):</span>
+                  <span className="text-gold-300">(Net Benefit ÷ Capex) × 100</span>
+                </div>
               </div>
             </div>
 

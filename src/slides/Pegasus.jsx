@@ -101,39 +101,36 @@ export default function Pegasus() {
             
             {/* 2. PEGASUS — Drone Module */}
             <div className="mb-6">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">2. Drone Module (Hardware)</h4>
+              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">2. Drone Module (Hardware & Specs)</h4>
               
               <div className="mb-4">
                 <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
                 <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                  <li>Aerial monitoring.</li>
-                  <li>Covers larger farm areas.</li>
-                  <li>Captures crop images.</li>
-                  <li>Sends images to the AI-processing system.</li>
-                  <li>Provides the initial location/zone information.</li>
+                  <li>Autonomous aerial grid mapping of fields.</li>
+                  <li>Maintains 15m survey altitude for high-res imaging.</li>
+                  <li>Achieves sub-centimeter Ground Sample Distance (GSD ≈ 0.55 cm/pixel).</li>
+                  <li>Transmits telemetry and captures frames for localized crop indexing.</li>
                 </ul>
               </div>
 
               <div className="mb-4">
                 <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Hardware Specs</span>
                 <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                  <li>F450-class drone frame.</li>
-                  <li>4 × 2212-class brushless motors & 4 × ESCs.</li>
-                  <li>1045 propellers.</li>
-                  <li>Pixhawk-class flight controller & NEO-M8N GPS.</li>
-                  <li>RGB/Raspberry Pi camera.</li>
-                  <li>3S/4S LiPo battery.</li>
-                  <li>RC transmitter/receiver (Optional SiK 915 MHz).</li>
+                  <li><strong>Frame:</strong> F450 Glass Fiber quadcopter frame.</li>
+                  <li><strong>Propulsion:</strong> 4 × 2212 920KV brushless motors, 30A ESCs, 1045 self-locking props.</li>
+                  <li><strong>Flight Control:</strong> Pixhawk 2.4.8 running ArduPilot firmware with NEO-M8N GPS/Compass.</li>
+                  <li><strong>Camera Payload:</strong> Raspberry Pi Camera Module v2 (8MP, Sony IMX219 sensor).</li>
+                  <li><strong>Power System:</strong> 4S 5200mAh 35C LiPo battery (Providing ~18-20 minutes flight window).</li>
                 </ul>
               </div>
 
               <div>
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Working</span>
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Execution Architecture</span>
                 <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-2 rounded border border-white/5 inline-block">
-                  Drone → Camera → Images → Wireless Transfer → Laptop → BUDDHI
+                  ArduPilot Waypoints → Pi Camera Capture → Wireless 5GHz Sync → Laptop Edge Processing → BUDDHI Detection
                 </div>
                 <p className="text-xs text-mist-400 mt-2 italic">
-                  * Prototype does not require AI model to run directly on the drone. Pegasus captures; laptop processes.
+                  * Hardware design utilizes edge-transfer to offload heavy YOLO neural processing to a localized ground laptop/server.
                 </p>
               </div>
             </div>
@@ -141,18 +138,19 @@ export default function Pegasus() {
             {/* 9. COMMUNICATION SYSTEM */}
             <div className="mb-6">
               <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">9. Communication System</h4>
-              <p className="text-sm text-mist-200 mb-3">Connects the different modules via Wi-Fi, Bluetooth, or software-based data exchange (API/JSON).</p>
+              <p className="text-sm text-mist-200 mb-3">Uses dual-band Wi-Fi (5GHz for raw image transfers) and SiK 915MHz Telemetry for sending MAVLink packets directly to the ground control station (GCS).</p>
               <div className="font-mono text-[11px] text-field-300 bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div>[PEGASUS] → Camera Image → Wi-Fi → Laptop → [BUDDHI]</div>
+                <div>[MAVLink Telemetry] → 915MHz Radio → ground receiver</div>
+                <div className="border-t border-white/5 pt-1">[Captured Frame Payload] → HTTP POST via 5GHz Wi-Fi AP → BUDDHI API</div>
               </div>
             </div>
 
             {/* 10. LOCATION MAPPING */}
             <div>
-              <h4 className="font-mono text-sm uppercase tracking-widest text-mist-100 mb-3 border-b border-white/10 pb-2">10. Location Mapping</h4>
-              <p className="text-sm text-mist-300 mb-2">Drone image maps to a specific grid coordinate for the robot:</p>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5">
-                Disease detected → Image region → Zone B2 → Grid B2 → Robot target
+              <h4 className="font-mono text-sm uppercase tracking-widest text-mist-100 mb-3 border-b border-white/10 pb-2">10. Image-to-Grid Localization</h4>
+              <p className="text-sm text-mist-300 mb-2">Converts focal plane coordinate vectors from camera frames to physical farm zone coordinates:</p>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5">
+                <span className="text-mist-400">1. Raw Pixel (x, y)</span> → <span className="text-gold-300">2. GPS metadata projection</span> → <span className="text-field-300">3. Map cell lookup (B2)</span> → <span className="text-red-400">4. TALOS Target Node (12, 8)</span>
               </div>
             </div>
 
