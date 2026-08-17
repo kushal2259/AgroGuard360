@@ -5,6 +5,7 @@ import { slides } from './data/slides.js'
 import Navigation from './components/Navigation.jsx'
 import LiveDemo from './components/LiveDemo.jsx'
 import MegaMenu from './components/MegaMenu.jsx'
+import DetailPage from './components/DetailPage.jsx'
 
 const slideVariants = {
   enter: (direction) => ({
@@ -41,8 +42,14 @@ export default function App() {
     closeDemo,
   } = usePresentation(slides.length)
 
+  const [activeDetailPage, setActiveDetailPage] = useState(null)
+
   useEffect(() => {
     const handleKey = (event) => {
+      if (activeDetailPage) {
+        if (event.key === 'Escape') setActiveDetailPage(null)
+        return
+      }
       if (isDemoOpen) {
         if (event.key === 'Escape') closeDemo()
         return
@@ -57,13 +64,21 @@ export default function App() {
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [isDemoOpen, goNext, goPrev, closeDemo])
+  }, [isDemoOpen, activeDetailPage, goNext, goPrev, closeDemo])
+
+  const handleOpenDetailPage = (moduleId, sectionId) => {
+    const slideIdx = slides.findIndex(s => s.id === moduleId)
+    if (slideIdx !== -1) {
+      goTo(slideIdx)
+    }
+    setActiveDetailPage({ moduleId, sectionId })
+  }
 
   const ActiveSlide = slides[index].Component
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-charcoal-950 text-mist-100">
-      <MegaMenu onGoTo={goTo} />
+      <MegaMenu onGoTo={goTo} onOpenDetailPage={handleOpenDetailPage} />
 
       <div className="absolute inset-0 pt-[72px]">
         <AnimatePresence custom={direction} initial={false}>
@@ -94,6 +109,15 @@ export default function App() {
       )}
 
       <AnimatePresence>{isDemoOpen && <LiveDemo onClose={closeDemo} />}</AnimatePresence>
+      <AnimatePresence>
+        {activeDetailPage && (
+          <DetailPage
+            moduleId={activeDetailPage.moduleId}
+            sectionId={activeDetailPage.sectionId}
+            onClose={() => setActiveDetailPage(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
