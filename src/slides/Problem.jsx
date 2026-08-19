@@ -1,8 +1,57 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import SlideShell from '../components/SlideShell.jsx'
 import FarmScene from '../components/scene/FarmScene.jsx'
+import { Cpu, Plane, Compass, Bot, BarChart3, AlertOctagon } from 'lucide-react'
+
+const WORKFLOW_STEPS = [
+  {
+    step: "1. Drone Scan",
+    module: "PEGASUS",
+    icon: <Plane size={18} />,
+    color: "text-sky-400 border-sky-400/20 bg-sky-400/5",
+    desc: "Autonomous F450 quadcopter sweeps rows at a 15m altitude, capturing sub-centimeter crop leaf imaging frames and logging telemetry."
+  },
+  {
+    step: "2. AI Inference",
+    module: "BUDDHI",
+    icon: <Cpu size={18} />,
+    color: "text-gold-400 border-gold-400/20 bg-gold-400/5",
+    desc: "Inference server runs YOLOv8n object detection on the GSD frames, classifying blight infections or water stress with localized coordinates."
+  },
+  {
+    step: "3. Severity Priority",
+    module: "SCHEDULER",
+    icon: <AlertOctagon size={18} />,
+    color: "text-red-400 border-red-400/20 bg-red-400/5",
+    desc: "Calculates priority risk score indexing disease severity, confidence, and distance to optimal coordinate routing sequence."
+  },
+  {
+    step: "4. Path Planning",
+    module: "PROMETHIA",
+    icon: <Compass size={18} />,
+    color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5",
+    desc: "Generates cost-optimized A* trajectories over the row grid using Manhattan distance calculations to avoid obstacles."
+  },
+  {
+    step: "5. Robotic Action",
+    module: "TALOS",
+    icon: <Bot size={18} />,
+    color: "text-field-400 border-field-400/20 bg-field-400/5",
+    desc: "Arduino 4WD rover travels to target coordinates using ultrasonic distance collision sensors. Calibrates local capacitive moisture and triggers MOSFET pump irrigation."
+  },
+  {
+    step: "6. Cost/ROI Audit",
+    module: "MERCATUS",
+    icon: <BarChart3 size={18} />,
+    color: "text-amber-400 border-amber-400/20 bg-amber-400/5",
+    desc: "Audits operational metrics (liters sprayed, battery depletion, manual labor delta) to compute capital payback and seasonal farm ROI."
+  }
+]
 
 export default function Problem() {
+  const [activeStep, setActiveStep] = useState(0)
+
   return (
     <SlideShell
       kicker="Section 1"
@@ -16,40 +65,89 @@ export default function Problem() {
     >
       <div className="flex flex-col lg:flex-row h-full gap-6">
         
-        <div className="flex-1 rounded-md border border-mist-500/15 bg-charcoal-900/70 p-8 backdrop-blur-sm overflow-y-auto scrollbar-none">
+        <div className="flex-1 flex flex-col bg-charcoal-900/70 border border-mist-500/15 rounded-3xl p-8 backdrop-blur-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 blur-[50px] pointer-events-none" />
+          
           <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-6 border-b border-white/10 pb-2">Core Concept & Target Scale</h4>
-          <p className="text-xl leading-relaxed text-mist-200 mb-6 font-light">
+          <p className="text-lg leading-relaxed text-mist-200 mb-6 font-light">
             AGROGUARD 360 is optimized for a 5 to 10-acre pilot farm layout (e.g., high-value row crops like Solanaceae/tomato or cotton) using automated detection-to-action control loops.
           </p>
-          <ul className="text-lg text-mist-300 space-y-3 ml-4 list-disc marker:text-mist-500 mb-8">
+          <ul className="text-sm text-mist-300 space-y-3 ml-4 list-disc marker:text-mist-500 flex-grow">
             <li><strong>Automated Drone Surveys:</strong> Reduces inspection manual labor by up to 80% through systematic autonomous aerial imaging.</li>
             <li><strong>Ground-Truth Inspection:</strong> Targets localized chemical/irrigation delivery to reduce overall herbicide and water usage by 25-30%.</li>
             <li><strong>Closed-Loop System:</strong> Aerial anomaly detection directly feeds into path planning to coordinate ground action without human oversight.</li>
           </ul>
           
-          <div className="bg-charcoal-950/60 p-4 rounded-xl border border-gold-500/20 shadow-inner inline-block">
-            <span className="font-mono text-xs uppercase tracking-widest text-gold-500 block mb-2">Automated Control Loop</span>
-            <div className="font-mono text-sm text-gold-300 flex items-center gap-2 flex-wrap">
-              <span>1. Drone Scan</span> <span className="text-mist-500">→</span> 
-              <span>2. AI Inference</span> <span className="text-mist-500">→</span> 
-              <span>3. Severity Priority</span> <span className="text-mist-500">→</span> 
-              <span>4. Path Planning (A*)</span> <span className="text-mist-500">→</span> 
-              <span>5. Robotic Action</span> <span className="text-mist-500">→</span> 
-              <span>6. Cost/ROI Audit</span>
+          {/* Interactive Block Diagram Nodes */}
+          <div className="mt-6">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold-500 block mb-3">Interactive System Control Loop</span>
+            <div className="grid grid-cols-3 gap-2">
+              {WORKFLOW_STEPS.map((step, i) => (
+                <button
+                  key={i}
+                  onMouseEnter={() => setActiveStep(i)}
+                  onClick={() => setActiveStep(i)}
+                  className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all ${
+                    activeStep === i
+                      ? `${step.color} border-gold-400 scale-[1.03] shadow-[0_0_10px_rgba(232,185,85,0.2)]`
+                      : 'border-white/5 bg-white/5 text-mist-400 hover:border-white/15 hover:bg-white/10'
+                  }`}
+                >
+                  <div className="mb-1">{step.icon}</div>
+                  <span className="text-[10px] font-mono font-bold leading-tight">{step.step.split('. ')[1]}</span>
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="flex-1 rounded-md border border-mist-500/15 bg-charcoal-900/70 p-8 backdrop-blur-sm overflow-y-auto scrollbar-none">
-          <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-6 border-b border-white/10 pb-2">System Integration Details</h4>
-          <p className="text-sm leading-relaxed text-mist-300 space-y-4">
-            <span className="block mb-3">AGROGUARD 360 is an integrated, low-cost precision agriculture ecosystem. Aerial monitoring is handled by <strong>PEGASUS</strong> (Pixhawk-controlled quadcopter) which executes grid surveys at a 15m altitude to achieve sub-centimeter Ground Sample Distance (GSD).</span>
-            <span className="block mb-3">Captured images are wirelessly transferred for computer vision analysis on <strong>BUDDHI</strong>, a YOLOv8-based model trained on annotated crop disease datasets (PlantVillage + regional additions) to classify localized stress types (late blight, early blight, water deficit) and generate coordinate zones.</span>
-            <span className="block mb-3">The detected zones are fed into a priority algorithm weighting disease risk, AI confidence, and distance. <strong>PROMETHIA</strong> takes the highest-priority zone and uses the A* algorithm on a discrete 2D grid of the farm to calculate the absolute shortest path avoiding physical obstacles (irrigation pipes, fences).</span>
-            <span className="block mb-3">The optimized path coordinates are transmitted via Bluetooth/Wi-Fi to <strong>TALOS</strong>, an Arduino-based 4WD ground robot. TALOS navigates using HC-SR04 ultrasonic sensors for obstacle avoidance, reads capacitive soil moisture at the target site, and triggers targeted pump-action irrigation.</span>
-            <span className="block mt-6 p-4 bg-white/5 border border-white/10 rounded-lg text-field-200 italic">
-              "The drone identifies the problem from the air, the AI deciphers it, the route optimizer navigates, the robot intervenes, and financial analytics computes the real savings."
-            </span>
+        {/* Right side: Dynamic Subsystem Details */}
+        <div className="flex-1 flex flex-col bg-charcoal-900/70 border border-mist-500/15 rounded-3xl p-8 backdrop-blur-sm overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-field-500/5 blur-[80px] pointer-events-none" />
+          
+          <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-6 border-b border-white/10 pb-2">Subsystem Dynamic Diagnostics</h4>
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25 }}
+              className="flex-grow flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                    {WORKFLOW_STEPS[activeStep].icon}
+                  </div>
+                  <div>
+                    <span className="font-mono text-xs text-mist-500 uppercase tracking-widest">subsystem {WORKFLOW_STEPS[activeStep].module}</span>
+                    <h3 className="text-xl font-display font-medium text-white tracking-tight">{WORKFLOW_STEPS[activeStep].step}</h3>
+                  </div>
+                </div>
+                
+                <p className="text-base text-mist-300 leading-relaxed font-light mb-6">
+                  {WORKFLOW_STEPS[activeStep].desc}
+                </p>
+              </div>
+
+              <div className="p-4 bg-white/5 border border-white/10 rounded-2xl">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-mist-500 block mb-2">Integration Protocol</span>
+                <span className="text-xs text-field-300 font-mono">
+                  {activeStep === 0 && 'Pixhawk Telemetry → ArduPilot Waypoints → 915MHz MAVLink payload'}
+                  {activeStep === 1 && 'YOLOv8n PyTorch Tensor → classes identification → bounding coordinates'}
+                  {activeStep === 2 && 'Priority Scoring Matrix [severity, risk multiplier, distance vectors]'}
+                  {activeStep === 3 && '2D Discrete Cost Mapping → A* traversal nodes f(n) = g(n) + h(n)'}
+                  {activeStep === 4 && 'Bluetooth HC-05 serial sync → differential wheel speeds → Capacitive read'}
+                  {activeStep === 5 && 'Audit dashboard logging → liters usage savings delta → payback period ROI'}
+                </span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <p className="text-xs text-mist-500 mt-6 leading-relaxed border-t border-white/5 pt-4">
+            * Drone coordinates and diagnosed anomalies synchronise directly to the robot navigation route.
           </p>
         </div>
 
