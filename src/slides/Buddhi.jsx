@@ -96,33 +96,7 @@ export default function Buddhi() {
             </div>
           </div>
 
-          {/* AI DECISIONS DASHBOARD */}
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5">
-            <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">📋 AI Decision Queue</h4>
-            
-            <ul className="space-y-2.5">
-              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
-                <span className="text-mist-200">💧 Target Irrigation</span>
-                <span className="font-mono text-sky-400">[Irrigate Zone B]</span>
-              </li>
-              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
-                <span className="text-mist-200">🤖 Dispatch Ground Rover</span>
-                <span className="font-mono text-field-400">[Inspect Zone C]</span>
-              </li>
-              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
-                <span className="text-mist-200">🚁 Dispatch Telemetry Drone</span>
-                <span className="font-mono text-sky-300">[Send PEGASUS to D]</span>
-              </li>
-              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
-                <span className="text-mist-200">🛡️ Targeted Weed Control</span>
-                <span className="font-mono text-red-400">[Send TALOS to Zone C]</span>
-              </li>
-              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
-                <span className="text-mist-200">🌾 Harvest Scheduling</span>
-                <span className="font-mono text-gold-400">[Prepare E for Harvest]</span>
-              </li>
-            </ul>
-          </div>
+
           
         </div>
       </div>

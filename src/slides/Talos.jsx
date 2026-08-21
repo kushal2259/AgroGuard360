@@ -147,32 +147,7 @@ export default function Talos() {
               </div>
             </div>
 
-            {/* ROBOTIC MISSION LOOP */}
-            <div className="border-t border-white/10 pt-4">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">🔄 Robotic Mission Loop</h4>
-              <div className="font-mono text-[10px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div className="flex gap-2">
-                  <span className="text-gold-300">1.</span>
-                  <span>Receive Target Coordinates from BUDDHI</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-sky-300">2.</span>
-                  <span>Navigate row crops to target zone (3D physical pathing)</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-emerald-300">3.</span>
-                  <span>Deploy soil sensors / camera to inspect crop leaves</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-field-300">4.</span>
-                  <span>Send diagnostics payload back to BUDDHI GCS</span>
-                </div>
-                <div className="flex gap-2">
-                  <span className="text-mist-400">5.</span>
-                  <span>Return to charging dock / standby for next task</span>
-                </div>
-              </div>
-            </div>
+
 
           </div>
         </div>

@@ -101,28 +101,7 @@ export default function Sensors() {
               </div>
             </div>
 
-            {/* Smart Irrigation */}
-            <div>
-              <h5 className="font-mono text-xs uppercase tracking-wider text-field-400 border-b border-white/5 pb-1 mb-2">💧 Smart Irrigation Hardware</h5>
-              <ul className="space-y-1 list-disc ml-4 text-mist-300 font-light">
-                <li>Main pressurized water tank & pump system.</li>
-                <li>Primary + secondary distribution pipelines.</li>
-                <li>Zone solenoids & localized drip lines.</li>
-              </ul>
-            </div>
 
-            {/* Automation flow */}
-            <div>
-              <h5 className="font-mono text-xs uppercase tracking-wider text-gold-400 border-b border-white/5 pb-1 mb-2">⚙️ Closed-Loop Automation</h5>
-              <div className="font-mono text-[9px] text-mist-400 bg-charcoal-950/50 p-2.5 rounded border border-white/5 leading-relaxed space-y-1">
-                <div>1. Soil probe detects moisture &lt; 28%</div>
-                <div>2. Sends signal to BUDDHI AI Engine</div>
-                <div>3. BUDDHI activates specific Zone Valve</div>
-                <div>4. Submersible pump triggers ON</div>
-                <div>5. Water flows to designated zone</div>
-                <div>6. Moisture increases &gt; 68% ➔ Pump OFF</div>
-              </div>
-            </div>
 
           </div>
         </div>

@@ -76,53 +76,53 @@ export default function Mercatus() {
           </div>
         </div>
 
-        <Panel className="flex flex-col justify-center gap-6 p-6">
-          <div className="flex items-center justify-between mb-2">
+        <Panel className="flex flex-col justify-center gap-6 p-8">
+          <div className="flex items-center justify-between mb-4">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-mist-500">
-              Supply Chain Pipeline
+              Financial Impact Simulation
             </div>
-            <StatusBadge variant="active" pulse>Logistics Active</StatusBadge>
+            <StatusBadge variant="demo">Demo Data</StatusBadge>
           </div>
 
-          {/* Farm -> Storage -> Vehicle -> Market Pipeline */}
-          <div className="space-y-4">
-            
-            <div className="flex items-start gap-3">
-              <div className="w-5 h-5 rounded-full bg-emerald-500/25 border border-emerald-400 flex items-center justify-center font-mono text-[10px] text-emerald-300 shrink-0 mt-0.5">✓</div>
-              <div>
-                <span className="text-xs font-mono text-mist-400 uppercase tracking-wider block">Stage 1: Farm Harvest</span>
-                <p className="text-xs text-white font-medium">850 KG Grade-A Wheat harvested from Zone E</p>
-              </div>
+          <div>
+            <div className="mb-2 flex justify-between text-sm text-mist-300">
+              <span>Traditional farming cost</span>
+              <span className="font-mono text-red-300 font-bold">
+                $12,500
+              </span>
             </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-5 h-5 rounded-full bg-emerald-500/25 border border-emerald-400 flex items-center justify-center font-mono text-[10px] text-emerald-300 shrink-0 mt-0.5">✓</div>
-              <div>
-                <span className="text-xs font-mono text-mist-400 uppercase tracking-wider block">Stage 2: Storage Unit</span>
-                <p className="text-xs text-white font-medium">Logged into Storage Silo 2 (Temp: 21°C | Humidity: 45%)</p>
-              </div>
+            <div className="h-4 w-full overflow-hidden rounded-full bg-charcoal-700">
+              <motion.div
+                className="h-full rounded-full bg-red-400/80"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 0.9, delay: 0.2 }}
+              />
             </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-400 flex items-center justify-center font-mono text-[10px] text-sky-300 shrink-0 mt-0.5 animate-pulse">➔</div>
-              <div>
-                <span className="text-xs font-mono text-sky-300 uppercase tracking-wider block animate-pulse">Stage 3: Transport Vehicle</span>
-                <p className="text-xs text-white font-medium">Loaded onto truck GJ-01-XX-XXXX. En route to market.</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-5 h-5 rounded-full bg-charcoal-800 border border-white/10 flex items-center justify-center font-mono text-[10px] text-mist-500 shrink-0 mt-0.5">➔</div>
-              <div>
-                <span className="text-xs font-mono text-mist-500 uppercase tracking-wider block">Stage 4: Marketplace Destination</span>
-                <p className="text-xs text-mist-400 font-light">Ahmedabad wholesale grain exchange · Buyer matched</p>
-              </div>
-            </div>
-
           </div>
 
-          <div className="mt-4 p-4 border border-white/5 bg-white/5 rounded-2xl text-center text-xs text-mist-400 font-light">
-            * Dispatch schedules, vehicle routing vectors, and buyer escrow statuses update dynamically.
+          <div>
+            <div className="mb-2 flex justify-between text-sm text-mist-300">
+              <span>AGROGUARD-assisted cost</span>
+              <span className="font-mono text-field-200 font-bold">
+                $8,200
+              </span>
+            </div>
+            <div className="h-4 w-full overflow-hidden rounded-full bg-charcoal-700">
+              <motion.div
+                className="h-full rounded-full bg-field-400"
+                initial={{ width: 0 }}
+                animate={{ width: `${(8200 / 12500) * 100}%` }}
+                transition={{ duration: 0.9, delay: 0.4 }}
+              />
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg border border-gold-400/30 bg-gold-500/10 p-6 text-center">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-gold-300">Estimated Savings</div>
+            <div className="mt-2 font-display text-5xl font-bold text-gold-300">
+              +$4,300
+            </div>
           </div>
         </Panel>
       </div>

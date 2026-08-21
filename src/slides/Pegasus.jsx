@@ -141,18 +141,7 @@ export default function Pegasus() {
               </div>
             </div>
 
-            {/* HUMAN OPERATOR SUPERVISION */}
-            <div className="border-t border-white/10 pt-4">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">🧑‍🌾 HUMAN OPERATOR</h4>
-              <p className="text-sm text-mist-200 mb-3">
-                The farmer acts as the supervisor, monitoring the autonomous loop via tablet/mobile.
-              </p>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div className="flex justify-between text-gold-300"><span>• Start/Abort Missions</span><span>[Authorized]</span></div>
-                <div className="flex justify-between text-sky-300"><span>• View Anomaly Alerts</span><span>[Live feed]</span></div>
-                <div className="flex justify-between text-field-300"><span>• Trigger Water Pump</span><span>[Manual Override]</span></div>
-              </div>
-            </div>
+
 
           </div>
         </div>
