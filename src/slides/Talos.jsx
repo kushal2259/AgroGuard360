@@ -107,59 +107,69 @@ export default function Talos() {
             BASE → CROP ZONE → INSPECTION → SENSOR POINT → RETURN
           </div>
         </div>
-
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4 rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4">
             <MetricCard label="Battery" value={battery.toFixed(0)} unit="%" accent={battery < 60 ? 'danger' : 'field'} />
-            <MetricCard label="Mission" value="Active" accent="gold" />
-            <MetricCard label="Distance" value={distance} unit="m" />
-            <MetricCard label="Obstacles Avoided" value={obstacles} />
+            <MetricCard label="Motor System" value="4WD Geared" accent="gold" />
+            <MetricCard label="Status" value={status} unit="" />
+            <MetricCard label="Payload" value="Arm Active" accent="field" />
           </div>
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative">
+          
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative space-y-6">
             
-            {/* 6. TALOS — Ground Robot */}
-            <div className="mb-6">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">6. Ground Robot (Hardware Specs)</h4>
+            {/* Phase 6 — TALOS — Ground Agribot */}
+            <div>
+              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">🤖 TALOS — Ground Robot</h4>
               
               <div className="mb-4">
                 <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
+                <p className="text-sm text-mist-200">Performs precise ground-level crop inspection, sensing, and targeted crop interventions.</p>
+              </div>
+
+              <div className="mb-4">
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Hardware Representation</span>
                 <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                  <li>Ground-level validation of aerial disease alerts.</li>
-                  <li>In-situ environmental telemetry and targeted irrigation.</li>
-                  <li>Executes coordinate paths fed via a serial Bluetooth link (HC-05).</li>
+                  <li><strong>Chassis:</strong> Heavy-duty four-wheel drive or track-tread system.</li>
+                  <li><strong>Sensors:</strong> Inspection HD camera + soil sensor probes.</li>
+                  <li><strong>Arm:</strong> Robotic manipulator arm concept for targeted spot interventions.</li>
+                  <li><strong>Telemetry:</strong> GPS module + dual-channel wireless communication.</li>
                 </ul>
               </div>
 
-              <div>
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">System Specs</span>
+              <div className="mb-4">
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Core Functions</span>
                 <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                  <li><strong>MCU:</strong> Arduino Nano (ATmega328P) running custom C/C++ control loop.</li>
-                  <li><strong>Drive:</strong> 4WD differential chassis with 4 geared DC motors and L298N H-bridge driver.</li>
-                  <li><strong>Water Payload:</strong> 500ml reservoir tank, 5V DC submersible pump.</li>
-                  <li><strong>Pump Switch:</strong> IRF520 MOSFET driver with a 1N4007 flyback protection diode.</li>
+                  <li>Autonomous row-by-row navigation & obstacle dodging.</li>
+                  <li>Plant-level visual crop health check.</li>
+                  <li>Deep-soil chemical / moisture diagnostics.</li>
+                  <li>Targeted weed detection & localized spot action.</li>
                 </ul>
               </div>
             </div>
 
-            {/* 7. TALOS — Obstacle Detection */}
-            <div className="mb-6">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">7. Sonar Ranger (HC-SR04)</h4>
-              <p className="text-sm text-mist-200 mb-2">Triggers a 10µs pulse to measure ultrasonic reflection and avoid field obstacles:</p>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div className="text-gold-300">Ping Triggered → Signal Bounces → Echo Pulse Width (Time) Read</div>
-                <div className="text-mist-500 border-t border-white/5 pt-1.5 font-semibold text-center">Distance (cm) = (Time in µs × 0.0343) ÷ 2</div>
-              </div>
-            </div>
-
-            {/* 8. TALOS — Soil Monitoring */}
-            <div>
-              <h4 className="font-mono text-sm uppercase tracking-widest text-mist-100 mb-3 border-b border-white/10 pb-2">8. Capacitive Moisture Monitoring (v1.2)</h4>
-              <p className="text-sm text-mist-200 mb-2">Utilizes capacitive frequency sensing to prevent probe corrosion. Calibration settings:</p>
-              <div className="font-mono text-[11px] text-field-300 bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div className="flex justify-between"><span>ADC Threshold for Dry Soil (Irrigate)</span><span className="text-gold-400">&lt; 350 (45%)</span></div>
-                <div className="flex justify-between"><span>ADC Threshold for Target Wetness</span><span className="text-field-300">&gt; 650 (80%)</span></div>
-                <div className="border-t border-white/5 pt-1.5 text-xs text-mist-400 italic">
-                  * Loop: Read Sensor → If &lt; 350 → Trigger Pump ON → Water → Loop until &gt; 650 → Pump OFF.
+            {/* ROBOTIC MISSION LOOP */}
+            <div className="border-t border-white/10 pt-4">
+              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">🔄 Robotic Mission Loop</h4>
+              <div className="font-mono text-[10px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
+                <div className="flex gap-2">
+                  <span className="text-gold-300">1.</span>
+                  <span>Receive Target Coordinates from BUDDHI</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-sky-300">2.</span>
+                  <span>Navigate row crops to target zone (3D physical pathing)</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-emerald-300">3.</span>
+                  <span>Deploy soil sensors / camera to inspect crop leaves</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-field-300">4.</span>
+                  <span>Send diagnostics payload back to BUDDHI GCS</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-mist-400">5.</span>
+                  <span>Return to charging dock / standby for next task</span>
                 </div>
               </div>
             </div>

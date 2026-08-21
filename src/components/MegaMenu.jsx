@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ArrowRight, Cpu, Compass, Plane, Bot, BarChart3, Rocket } from 'lucide-react'
+import { Menu, X, ArrowRight, Cpu, Compass, Plane, Bot, BarChart3, Droplet } from 'lucide-react'
 import { slides } from '../data/slides.js'
 
 const modules = [
@@ -63,14 +63,14 @@ const modules = [
     ]
   },
   {
-    id: 'fiontar',
-    title: 'FIONTAR — AgroGuard Startup',
-    shortName: 'Fiontar',
-    description: 'Commercial realization program centering on Capex unit bundles, SaaS analytics, and MaaS contracts.',
-    icon: <Rocket className="text-purple-400" size={32} />,
+    id: 'sensors',
+    title: 'SENSORS — IoT & Smart Irrigation',
+    shortName: 'Sensors',
+    description: 'Continuous soil telemetry network and closed-loop drip irrigation automation systems.',
+    icon: <Droplet className="text-sky-400" size={32} />,
     points: [
-      { id: 'customer-pipeline', label: 'Target Customers & Pipeline', desc: 'Greenhouses, cooperatives, & pilot pipeline targets' },
-      { id: 'business-models', label: 'Monetization & SaaS Tiers', desc: 'Tiered subscription models & leasing options' }
+      { id: 'iot-sensors', label: 'IoT Sensor Network', desc: 'Soil moisture, temp, humidity, and light probes' },
+      { id: 'smart-irrigation', label: 'Smart Irrigation', desc: 'Automated micro-drip pump and valve controllers' }
     ]
   }
 ]

@@ -196,6 +196,20 @@ export default function LiveDemo({ onClose }) {
     
     addLog('Capacitive sensor ADC read: 680 (> 650 Threshold). Target wetness achieved. Pump OFF.')
     
+    // Phase 9 Scenario Continuation
+    await delay(1200)
+    addLog('PROMETHIA: Crop health index updated. Volumetric Stress: RESOLVED (680 ADC).')
+    addLog('BUDDHI: Confirming sector health recovery ➔ Index: 92% (HEALTHY).')
+    
+    await delay(1200)
+    addLog('MERCATUS: Target crop sector designated as [HARVEST-READY].')
+    addLog('MERCATUS: Generating harvest database record: Crop ID: WH-902, Type: Wheat.')
+    
+    await delay(1200)
+    addLog('MERCATUS Logistics: Moving harvested package (850 KG) to Storage Silo 2.')
+    addLog('MERCATUS Logistics: Dispatching transport vehicle (GJ-01-XX-XXXX).')
+    addLog('MERCATUS: Cargo loaded. Transit destination: Ahmedabad wholesale exchange.')
+
     // Success & ROI calculations
     await delay(1000)
     setPhase('success')

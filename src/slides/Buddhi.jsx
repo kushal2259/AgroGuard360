@@ -52,68 +52,76 @@ export default function Buddhi() {
 
         <div className="flex flex-col gap-4 overflow-y-auto scrollbar-none h-full pb-8 pr-2">
           
-          {/* 3. BUDDHI — AI Intelligence Module */}
+          {/* Phase 4 — BUDDHI — Farm Intelligence Engine */}
           <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5">
-            <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">3. AI Intelligence Module (YOLOv8n)</h4>
+            <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">🧠 BUDDHI — AI Intelligence Engine</h4>
             
             <div className="mb-4">
               <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
-              <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                <li>Acts as the real-time crop disease diagnostic engine.</li>
-                <li>Performs high-speed object detection on 640x640 frame inputs.</li>
-                <li>Outputs bound-box localized disease vectors & confidence scores.</li>
-                <li>Maps classified anomalies to specific discrete grid cells.</li>
-              </ul>
+              <p className="text-sm text-mist-200">The central brain of AGROGUARD 360, merging telemetry to direct automatic corrective actions.</p>
             </div>
 
             <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">AI Architecture & Performance</span>
-              <p className="text-sm text-mist-200 mb-2">Utilizes a lightweight <strong>YOLOv8n</strong> PyTorch model optimized for CPU execution (~32ms inference latency).</p>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-2.5 rounded border border-white/5 space-y-1">
-                <div>Model size: <span className="text-gold-300">~6.4 MB</span> (3.2 Million parameters)</div>
-                <div>Validation Metrics: <span className="text-field-300">mAP50: 92.4% | mAP50-95: 84.1%</span></div>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Multi-Source Inputs</span>
+              <div className="grid grid-cols-2 gap-2 text-xs text-mist-300 font-mono bg-charcoal-950/30 p-3 rounded border border-white/5">
+                <div>• PEGASUS Aerial Frames</div>
+                <div>• IoT Sensors Telemetry</div>
+                <div>• PROMETHIA Health Index</div>
+                <div>• TALOS Soil Readings</div>
+                <div>• Historical Farm Database</div>
+                <div>• Local Weather APIs</div>
               </div>
             </div>
 
             <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Training Dataset Pipeline</span>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div>Source: PlantVillage dataset (~5,000 augmented images).</div>
-                <div className="text-mist-500 border-t border-white/5 pt-1.5">Augmentations: Random flips, scale rotations, HSV color jitter, and Mosaic mix.</div>
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Processing Workflow</span>
+              <div className="font-mono text-[10px] text-white bg-charcoal-950/50 p-2.5 rounded border border-white/5 flex flex-wrap gap-1.5 justify-center">
+                <span className="text-mist-500">DATA</span> ➔ 
+                <span className="text-gold-400">ANALYSIS</span> ➔ 
+                <span className="text-orange-400">RISK DETECTION</span> ➔ 
+                <span className="text-red-400">DECISION</span> ➔ 
+                <span className="text-field-400">RECOMMENDATION</span> ➔ 
+                <span className="text-sky-400">ACTION</span>
               </div>
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Output Payload Example</span>
-              <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-2 rounded border border-white/5">
-                {`{ zone: "B2", class: "Late_Blight", conf: 0.94, severity: 4, priority: "HIGH" }`}
+              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Closed-Loop Decision Example</span>
+              <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-1">
+                <div>1. Input: <span className="text-mist-300">Soil Moisture = Low (Zone B)</span></div>
+                <div>2. Diagnosis: <span className="text-red-400">"Water stress detected in Zone B."</span></div>
+                <div>3. Recommendation: <span className="text-sky-300">"Activate irrigation for Zone B."</span></div>
+                <div className="border-t border-white/10 pt-1 mt-1 text-field-300">4. Action: Valve ➔ ON | Pump ➔ ON</div>
               </div>
             </div>
           </div>
 
-          {/* 4. PRIORITY MODULE */}
+          {/* AI DECISIONS DASHBOARD */}
           <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5">
-            <h4 className="font-mono text-sm uppercase tracking-widest text-red-400 mb-3 border-b border-white/10 pb-2">4. Priority Decision Engine</h4>
+            <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">📋 AI Decision Queue</h4>
             
-            <p className="text-sm text-mist-200 mb-3">
-              Sorts active detections to decide the optimal sequence of actions. Distinguishes task priority from path planning (A*).
-            </p>
-
-            <div className="mb-4">
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Priority Score Formula</span>
-              <div className="font-mono text-[10px] text-gold-300 bg-charcoal-950/50 p-3 rounded border border-white/5 leading-relaxed">
-                Score = 0.40(Severity) + 0.30(Urgency) + 0.15(Confidence) − 0.15(Distance_Norm)
-              </div>
-            </div>
-
-            <div>
-              <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Real-Time Sorting Example</span>
-              <ul className="font-mono text-[11px] text-white space-y-2 bg-charcoal-950/50 p-3 rounded border border-white/5">
-                <li className="flex gap-2 justify-between"><span>B2: Late Blight (Severe)</span><span className="text-red-400">[Score: 4.85]</span></li>
-                <li className="flex gap-2 justify-between"><span>D4: Water Deficit (Mild)</span><span className="text-gold-400">[Score: 3.10]</span></li>
-                <li className="flex gap-2 justify-between"><span>E1: Leaf Mold (Early)</span><span className="text-field-400">[Score: 1.85]</span></li>
-              </ul>
-            </div>
+            <ul className="space-y-2.5">
+              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
+                <span className="text-mist-200">💧 Target Irrigation</span>
+                <span className="font-mono text-sky-400">[Irrigate Zone B]</span>
+              </li>
+              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
+                <span className="text-mist-200">🤖 Dispatch Ground Rover</span>
+                <span className="font-mono text-field-400">[Inspect Zone C]</span>
+              </li>
+              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
+                <span className="text-mist-200">🚁 Dispatch Telemetry Drone</span>
+                <span className="font-mono text-sky-300">[Send PEGASUS to D]</span>
+              </li>
+              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
+                <span className="text-mist-200">🛡️ Targeted Weed Control</span>
+                <span className="font-mono text-red-400">[Send TALOS to Zone C]</span>
+              </li>
+              <li className="flex justify-between items-center bg-white/5 p-2.5 rounded text-xs border border-white/5">
+                <span className="text-mist-200">🌾 Harvest Scheduling</span>
+                <span className="font-mono text-gold-400">[Prepare E for Harvest]</span>
+              </li>
+            </ul>
           </div>
           
         </div>

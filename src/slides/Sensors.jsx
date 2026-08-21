@@ -32,11 +32,11 @@ export default function Sensors() {
 
   return (
     <SlideShell
-      kicker="Phase 04 · Ground Truth"
-      title="🌱 SMART SENSORS"
-      subtitle="A distributed sensor network feeds real-time soil and climate data straight to the AI core."
+      kicker="Phase 07 · IoT & Irrigation"
+      title="💧 SENSORS & SMART IRRIGATION"
+      subtitle="Distributed IoT telemetry feeds automated micro-irrigation pump loops."
     >
-      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[1fr_260px]">
+      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[1fr_300px]">
         <div className="relative overflow-hidden rounded-md border border-mist-500/15">
           <FarmScene variant="topdown" className="h-full w-full">
             {SENSORS.map((s) => (
@@ -46,45 +46,84 @@ export default function Sensors() {
                 y1={s.y}
                 x2={HUB.x}
                 y2={HUB.y}
-                stroke="#5fb87e"
-                strokeWidth={1}
-                strokeDasharray="3 3"
+                stroke="#38bdf8"
+                strokeWidth={1.5}
+                strokeDasharray="4 4"
                 initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 0.5 }}
-                transition={{ duration: 1, delay: 0.3 }}
+                animate={{ pathLength: 1, opacity: 0.6 }}
+                transition={{ duration: 1.2, delay: 0.3 }}
               />
             ))}
             {SENSORS.map((s, i) => (
               <g key={s.id} transform={`translate(${s.x} ${s.y})`}>
-                <circle r={4} fill="#a4d9b6" />
-                <ScanPulse size={40} color="#a4d9b6" rings={1} duration={2 + (i % 3) * 0.4} className="-translate-x-1/2 -translate-y-1/2" />
+                <circle r={5} fill="#38bdf8" />
+                <ScanPulse size={36} color="#38bdf8" rings={1} duration={2.2 + (i % 3) * 0.3} className="-translate-x-1/2 -translate-y-1/2" />
+                <g transform="translate(8 -10)">
+                  <text className="font-mono text-[9px] fill-sky-300 font-bold">S0{i+1}</text>
+                </g>
               </g>
             ))}
             <g transform={`translate(${HUB.x} ${HUB.y})`}>
-              <circle r={9} fill="#0c0f0e" stroke="#e8b955" strokeWidth={1.5} />
-              <circle r={3} fill="#e8b955" className="animate-pulse-slow" />
+              <circle r={10} fill="#0c0f0e" stroke="#38bdf8" strokeWidth={1.5} />
+              <circle r={3} fill="#38bdf8" className="animate-pulse" />
+              <g transform="translate(12 -2)">
+                <text className="font-mono text-[8px] fill-mist-400">IRRIGATION HUB</text>
+              </g>
             </g>
           </FarmScene>
           <div className="pointer-events-none absolute left-4 top-4">
             <StatusBadge variant="active" pulse>
-              Network Online · 5 Nodes
+              Pumps Online · Auto Mode
             </StatusBadge>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-4 rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4">
-            <MetricCard label="Soil Moisture" value={readings.moisture.toFixed(0)} unit="%" accent="field" />
-            <MetricCard label="Temperature" value={readings.temp.toFixed(1)} unit="°C" accent="gold" />
-            <MetricCard label="Humidity" value={readings.humidity.toFixed(0)} unit="%" />
-            <MetricCard label="Soil Condition" value="Good" accent="field" />
+        <div className="flex flex-col gap-4 overflow-y-auto scrollbar-none pr-1">
+          <div className="grid grid-cols-2 gap-3 rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4">
+            <MetricCard label="Soil Moisture" value="28" unit="%" accent="danger" />
+            <MetricCard label="Water Level" value="74" unit="%" accent="field" />
+            <MetricCard label="Air Temp" value="31.2" unit="°C" accent="gold" />
+            <MetricCard label="Air Humidity" value="58" unit="%" />
           </div>
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4 text-xs leading-relaxed text-mist-300">
-            Every node streams to the central hub continuously — moisture, temperature and humidity are fused with
-            aerial and ground imagery before a recommendation is ever generated.
-          </div>
-          <div className="mt-auto">
-            <StatusBadge variant="neutral">Simulated sensor telemetry</StatusBadge>
+          
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4 space-y-4 text-xs">
+            
+            {/* IoT Sensors Network */}
+            <div>
+              <h5 className="font-mono text-xs uppercase tracking-wider text-sky-400 border-b border-white/5 pb-1 mb-2">📡 IoT Sensor Network</h5>
+              <p className="text-mist-300 leading-relaxed mb-2 font-light">
+                Continuous monitoring of: Volumetric soil moisture, temp, humidity, light intensity, and water tank levels.
+              </p>
+              <div className="font-mono text-[10px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5">
+                <span className="text-red-400 font-bold">SENSOR S01 (Active)</span><br />
+                Moisture: 28% | Temp: 31°C | Hum: 58%<br />
+                <span className="text-red-400 animate-pulse font-bold block mt-1">⚠ STATE: LOW MOISTURE</span>
+              </div>
+            </div>
+
+            {/* Smart Irrigation */}
+            <div>
+              <h5 className="font-mono text-xs uppercase tracking-wider text-field-400 border-b border-white/5 pb-1 mb-2">💧 Smart Irrigation Hardware</h5>
+              <ul className="space-y-1 list-disc ml-4 text-mist-300 font-light">
+                <li>Main pressurized water tank & pump system.</li>
+                <li>Primary + secondary distribution pipelines.</li>
+                <li>Zone solenoids & localized drip lines.</li>
+              </ul>
+            </div>
+
+            {/* Automation flow */}
+            <div>
+              <h5 className="font-mono text-xs uppercase tracking-wider text-gold-400 border-b border-white/5 pb-1 mb-2">⚙️ Closed-Loop Automation</h5>
+              <div className="font-mono text-[9px] text-mist-400 bg-charcoal-950/50 p-2.5 rounded border border-white/5 leading-relaxed space-y-1">
+                <div>1. Soil probe detects moisture &lt; 28%</div>
+                <div>2. Sends signal to BUDDHI AI Engine</div>
+                <div>3. BUDDHI activates specific Zone Valve</div>
+                <div>4. Submersible pump triggers ON</div>
+                <div>5. Water flows to designated zone</div>
+                <div>6. Moisture increases &gt; 68% ➔ Pump OFF</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

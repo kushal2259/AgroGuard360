@@ -176,31 +176,34 @@ export const detailPages = {
       }
     }
   },
-  fiontar: {
-    'customer-pipeline': {
-      title: "Target Customers & Pilot Pipeline",
-      subtitle: "Commercial product market fit",
+  sensors: {
+    'iot-sensors': {
+      title: "IoT Sensor Network Diagnostics",
+      subtitle: "Real-time edge telemetry mapping",
       content: {
-        purpose: "Establishes customer archetypes and value delivery streams for scaling the product.",
-        targets: [
-          { tier: "Small/Medium Farms", size: "10 - 50 acres", value: "Gives smallholders access to high-tech diagnostics without expensive equipment costs." },
-          { tier: "Greenhouse Operations", size: "Controlled spans", value: "Perfect for high-density environments where disease spreads rapidly." },
-          { tier: "Agricultural Cooperatives", size: "Shared machinery", value: "Enables shared deployment of the hardware bundle across multiple farms." }
+        purpose: "Deploys a distributed array of sensor nodes across farm zones to capture volumetric soil moisture, temperature, air humidity, light intensity, and water tank levels.",
+        specs: [
+          { label: "Volumetric Moisture", value: "Capacitive frequency sensing (Dry < 350, Target > 650 ADC)" },
+          { label: "Temperature & Humidity", value: "Digital thermal probe readings (DHT22 / DS18B20 calibration)" },
+          { label: "Light Intensity", value: "Lux monitoring for photosynthesis cycle evaluation" },
+          { label: "Water Level", value: "Ultrasonic tank-depth detection (0% to 100% capacity)" }
         ],
-        details: "Pilot operations are targeted towards greenhouse tomato growers where early blight detection can save up to 40% of seasonal yield loss."
+        details: "Each node (e.g. SENSOR S01) continuously broadcasts telemetry via 915MHz LoRa or Wi-Fi. A warning state is triggered if soil moisture drops below 28% while ambient temperature exceeds 31°C."
       }
     },
-    'business-models': {
-      title: "Monetization & SaaS Tiers",
-      subtitle: "HaaS, SaaS, and MaaS revenue streams",
+    'smart-irrigation': {
+      title: "Smart Irrigation Automation",
+      subtitle: "Closed-loop micro-drip valve and pump network",
       content: {
-        purpose: "Flexible pricing models designed around how different farm scales operate financially.",
-        models: [
-          { name: "1. Hardware CAPEX Bundle", pricing: "$2,499 one-time", desc: "Quadcopter + Ground Rover + Docking Station + local server install." },
-          { name: "2. SaaS AI Diagnostics", pricing: "$19 - $49/acre/mo", desc: "Access to the YOLO cloud diagnostics portal, reports, and path planners." },
-          { name: "3. Monitoring-as-a-Service", pricing: "$150/acre/season", desc: "Full leasing model: zero upfront hardware cost, seasonal analytics reports." }
+        purpose: "Executes localized water delivery to specific crop grid cells using zone-controlled electronic solenoids and a main pressurization pump.",
+        steps: [
+          { step: "1. Event Triggered", desc: "IoT sensor logs low moisture (<28% / <350 ADC)." },
+          { step: "2. Decision Engine", desc: "BUDDHI confirms and authorizes irrigation event for target zone." },
+          { step: "3. Solenoid Valve Open", desc: "Zone controller releases the specified secondary pipeline valve." },
+          { step: "4. Pump Activation", desc: "Main micro-submersible pump activates to push water through drip lines." },
+          { step: "5. Real-Time Feedback", desc: "Capacitive sensor reads moisture rise. Once target >650 ADC is hit, pump shuts off." }
         ],
-        details: "The HaaS (Hardware-as-a-Service) leasing model lowers the barrier of entry, letting farmers pilot the technology with zero capital risk."
+        details: "This targeted approach restricts water delivery to needy zones only, reducing total water usage by up to 24% compared to traditional blanket broadcast sprinkler systems."
       }
     }
   }

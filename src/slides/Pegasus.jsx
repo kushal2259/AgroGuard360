@@ -92,65 +92,65 @@ export default function Pegasus() {
 
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4 rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4">
-            <MetricCard label="Altitude" value="42" unit="m" />
-            <MetricCard label="Speed" value="8.4" unit="m/s" />
-            <MetricCard label="Area Scanned" value={areaScanned.toFixed(1)} unit="acres" accent="gold" />
-            <MetricCard label="Anomalies" value={ANOMALIES.length} accent="danger" />
+            <MetricCard label="Altitude" value="15" unit="m" />
+            <MetricCard label="Speed" value="6.2" unit="m/s" />
+            <MetricCard label="Coverage" value="100" unit="%" accent="gold" />
+            <MetricCard label="Scan Mode" value="Multispectral" accent="field" />
           </div>
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative">
+          
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative space-y-6">
             
-            {/* 2. PEGASUS — Drone Module */}
-            <div className="mb-6">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">2. Drone Module (Hardware & Specs)</h4>
+            {/* PEGASUS — Autonomous Agricultural Drone */}
+            <div>
+              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">🚁 PEGASUS — Aerial Intelligence</h4>
               
               <div className="mb-4">
                 <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
+                <p className="text-sm text-mist-200">The primary monitoring & aerial image capture system.</p>
+              </div>
+
+              <div className="mb-4">
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Hardware Representation</span>
                 <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                  <li>Autonomous aerial grid mapping of fields.</li>
-                  <li>Maintains 15m survey altitude for high-res imaging.</li>
-                  <li>Achieves sub-centimeter Ground Sample Distance (GSD ≈ 0.55 cm/pixel).</li>
-                  <li>Transmits telemetry and captures frames for localized crop indexing.</li>
+                  <li><strong>Structure:</strong> Carbon frame with four/eight brushless rotors.</li>
+                  <li><strong>Optical:</strong> Dual camera array (Visible light + Thermal/Multispectral sensors).</li>
+                  <li><strong>Modules:</strong> GPS Positioning + SiK telemetry link.</li>
+                  <li><strong>Power:</strong> 4S / 6S LiPo Battery pack + status LED indicators.</li>
                 </ul>
               </div>
 
               <div className="mb-4">
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Hardware Specs</span>
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Core Functions</span>
                 <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
-                  <li><strong>Frame:</strong> F450 Glass Fiber quadcopter frame.</li>
-                  <li><strong>Propulsion:</strong> 4 × 2212 920KV brushless motors, 30A ESCs, 1045 self-locking props.</li>
-                  <li><strong>Flight Control:</strong> Pixhawk 2.4.8 running ArduPilot firmware with NEO-M8N GPS/Compass.</li>
-                  <li><strong>Camera Payload:</strong> Raspberry Pi Camera Module v2 (8MP, Sony IMX219 sensor).</li>
-                  <li><strong>Power System:</strong> 4S 5200mAh 35C LiPo battery (Providing ~18-20 minutes flight window).</li>
+                  <li>Autonomous flight & terrain scanning.</li>
+                  <li>Real-time thermal / NDVI crop health mapping.</li>
+                  <li>Instant coordinates capture of stress zones.</li>
                 </ul>
               </div>
 
-              <div>
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Execution Architecture</span>
-                <div className="font-mono text-[11px] text-gold-300 bg-charcoal-950/50 p-2 rounded border border-white/5 inline-block">
-                  ArduPilot Waypoints → Pi Camera Capture → Wireless 5GHz Sync → Laptop Edge Processing → BUDDHI Detection
+              <div className="mb-4">
+                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Drone Modes Loop</span>
+                <div className="font-mono text-[10px] text-white bg-charcoal-950/50 p-2.5 rounded border border-white/5 flex flex-wrap gap-1.5 justify-center">
+                  <span className="text-mist-400">IDLE</span> ➔ 
+                  <span className="text-gold-400">TAKEOFF</span> ➔ 
+                  <span className="text-sky-400">FIELD SCAN</span> ➔ 
+                  <span className="text-field-400">DATA COLLECTION</span> ➔ 
+                  <span className="text-gold-400">RETURN</span> ➔ 
+                  <span className="text-mist-400">LAND</span>
                 </div>
-                <p className="text-xs text-mist-400 mt-2 italic">
-                  * Hardware design utilizes edge-transfer to offload heavy YOLO neural processing to a localized ground laptop/server.
-                </p>
               </div>
             </div>
 
-            {/* 9. COMMUNICATION SYSTEM */}
-            <div className="mb-6">
-              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">9. Communication System</h4>
-              <p className="text-sm text-mist-200 mb-3">Uses dual-band Wi-Fi (5GHz for raw image transfers) and SiK 915MHz Telemetry for sending MAVLink packets directly to the ground control station (GCS).</p>
-              <div className="font-mono text-[11px] text-field-300 bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
-                <div>[MAVLink Telemetry] → 915MHz Radio → ground receiver</div>
-                <div className="border-t border-white/5 pt-1">[Captured Frame Payload] → HTTP POST via 5GHz Wi-Fi AP → BUDDHI API</div>
-              </div>
-            </div>
-
-            {/* 10. LOCATION MAPPING */}
-            <div>
-              <h4 className="font-mono text-sm uppercase tracking-widest text-mist-100 mb-3 border-b border-white/10 pb-2">10. Image-to-Grid Localization</h4>
-              <p className="text-sm text-mist-300 mb-2">Converts focal plane coordinate vectors from camera frames to physical farm zone coordinates:</p>
-              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5">
-                <span className="text-mist-400">1. Raw Pixel (x, y)</span> → <span className="text-gold-300">2. GPS metadata projection</span> → <span className="text-field-300">3. Map cell lookup (B2)</span> → <span className="text-red-400">4. TALOS Target Node (12, 8)</span>
+            {/* HUMAN OPERATOR SUPERVISION */}
+            <div className="border-t border-white/10 pt-4">
+              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">🧑‍🌾 HUMAN OPERATOR</h4>
+              <p className="text-sm text-mist-200 mb-3">
+                The farmer acts as the supervisor, monitoring the autonomous loop via tablet/mobile.
+              </p>
+              <div className="font-mono text-[11px] text-white bg-charcoal-950/50 p-3 rounded border border-white/5 space-y-2">
+                <div className="flex justify-between text-gold-300"><span>• Start/Abort Missions</span><span>[Authorized]</span></div>
+                <div className="flex justify-between text-sky-300"><span>• View Anomaly Alerts</span><span>[Live feed]</span></div>
+                <div className="flex justify-between text-field-300"><span>• Trigger Water Pump</span><span>[Manual Override]</span></div>
               </div>
             </div>
 
