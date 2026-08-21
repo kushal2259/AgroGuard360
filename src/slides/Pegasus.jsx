@@ -90,7 +90,7 @@ export default function Pegasus() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 h-full min-h-0 overflow-hidden">
           <div className="grid grid-cols-2 gap-4 rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4">
             <MetricCard label="Altitude" value="15" unit="m" />
             <MetricCard label="Speed" value="6.2" unit="m/s" />

@@ -107,7 +107,7 @@ export default function Talos() {
             BASE → CROP ZONE → INSPECTION → SENSOR POINT → RETURN
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 h-full min-h-0 overflow-hidden">
           <div className="grid grid-cols-2 gap-4 rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4">
             <MetricCard label="Battery" value={battery.toFixed(0)} unit="%" accent={battery < 60 ? 'danger' : 'field'} />
             <MetricCard label="Motor System" value="4WD Geared" accent="gold" />
