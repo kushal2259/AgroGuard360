@@ -65,36 +65,36 @@ export default function Problem() {
     >
       <div className="flex flex-col lg:flex-row h-full gap-6">
         
-        <div className="flex-1 flex flex-col bg-charcoal-900/70 border border-mist-500/15 rounded-3xl p-8 backdrop-blur-sm relative overflow-hidden">
+        <div className="flex-1 flex flex-col bg-charcoal-900/70 border border-mist-500/15 rounded-3xl p-5 backdrop-blur-sm relative overflow-y-auto scrollbar-none max-h-full">
           <div className="absolute top-0 right-0 w-32 h-32 bg-gold-500/5 blur-[50px] pointer-events-none" />
           
-          <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-6 border-b border-white/10 pb-2">Core Concept & Target Scale</h4>
-          <p className="text-lg leading-relaxed text-mist-200 mb-6 font-light">
+          <h4 className="font-mono text-xs uppercase tracking-widest text-gold-400 mb-4 border-b border-white/10 pb-1.5">Core Concept & Target Scale</h4>
+          <p className="text-sm leading-relaxed text-mist-200 mb-4 font-light">
             AGROGUARD 360 is optimized for a 5 to 10-acre pilot farm layout (e.g., high-value row crops like Solanaceae/tomato or cotton) using automated detection-to-action control loops.
           </p>
-          <ul className="text-sm text-mist-300 space-y-3 ml-4 list-disc marker:text-mist-500 flex-grow">
+          <ul className="text-xs text-mist-300 space-y-2 ml-4 list-disc marker:text-mist-500 flex-grow">
             <li><strong>Automated Drone Surveys:</strong> Reduces inspection manual labor by up to 80% through systematic autonomous aerial imaging.</li>
             <li><strong>Ground-Truth Inspection:</strong> Targets localized chemical/irrigation delivery to reduce overall herbicide and water usage by 25-30%.</li>
             <li><strong>Closed-Loop System:</strong> Aerial anomaly detection directly feeds into path planning to coordinate ground action without human oversight.</li>
           </ul>
           
           {/* Interactive Block Diagram Nodes */}
-          <div className="mt-6">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold-500 block mb-3">Interactive System Control Loop</span>
+          <div className="mt-5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold-500 block mb-2">Interactive System Control Loop</span>
             <div className="grid grid-cols-3 gap-2">
               {WORKFLOW_STEPS.map((step, i) => (
                 <button
                   key={i}
                   onMouseEnter={() => setActiveStep(i)}
                   onClick={() => setActiveStep(i)}
-                  className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all ${
+                  className={`flex flex-col items-center justify-center p-2.5 rounded-xl border text-center transition-all ${
                     activeStep === i
                       ? `${step.color} border-gold-400 scale-[1.03] shadow-[0_0_10px_rgba(232,185,85,0.2)]`
                       : 'border-white/5 bg-white/5 text-mist-400 hover:border-white/15 hover:bg-white/10'
                   }`}
                 >
                   <div className="mb-1">{step.icon}</div>
-                  <span className="text-[10px] font-mono font-bold leading-tight">{step.step.split('. ')[1]}</span>
+                  <span className="text-[9px] font-mono font-bold leading-tight">{step.step.split('. ')[1]}</span>
                 </button>
               ))}
             </div>
