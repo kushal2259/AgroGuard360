@@ -54,7 +54,7 @@ export default function Pegasus() {
       title="🚁 PEGASUS"
       subtitle="Virtual Drone Survey — the field is scanned lane by lane, no ground crew required."
     >
-      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[1fr_260px]">
+      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[1fr_380px]">
         <div className="relative overflow-hidden rounded-md border border-mist-500/15">
           <FarmScene variant="topdown" className="h-full w-full">
             <polyline
@@ -98,20 +98,20 @@ export default function Pegasus() {
             <MetricCard label="Scan Mode" value="Multispectral" accent="field" />
           </div>
           
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative space-y-6">
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4 flex-grow overflow-y-auto scrollbar-none relative space-y-4">
             
             {/* PEGASUS — Autonomous Agricultural Drone */}
             <div>
-              <h4 className="font-mono text-sm uppercase tracking-widest text-gold-400 mb-3 border-b border-white/10 pb-2">🚁 PEGASUS — Aerial Intelligence</h4>
+              <h4 className="font-mono text-xs uppercase tracking-widest text-gold-400 mb-2.5 border-b border-white/10 pb-1.5">🚁 PEGASUS — Aerial Intelligence</h4>
               
-              <div className="mb-4">
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
-                <p className="text-sm text-mist-200">The primary monitoring & aerial image capture system.</p>
+              <div className="mb-3">
+                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Purpose</span>
+                <p className="text-xs text-mist-200">The primary monitoring & aerial image capture system.</p>
               </div>
 
-              <div className="mb-4">
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Hardware Representation</span>
-                <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+              <div className="mb-3">
+                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Hardware Representation</span>
+                <ul className="text-xs text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
                   <li><strong>Structure:</strong> Carbon frame with four/eight brushless rotors.</li>
                   <li><strong>Optical:</strong> Dual camera array (Visible light + Thermal/Multispectral sensors).</li>
                   <li><strong>Modules:</strong> GPS Positioning + SiK telemetry link.</li>
@@ -119,18 +119,18 @@ export default function Pegasus() {
                 </ul>
               </div>
 
-              <div className="mb-4">
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Core Functions</span>
-                <ul className="text-sm text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+              <div className="mb-3">
+                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Core Functions</span>
+                <ul className="text-xs text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
                   <li>Autonomous flight & terrain scanning.</li>
                   <li>Real-time thermal / NDVI crop health mapping.</li>
                   <li>Instant coordinates capture of stress zones.</li>
                 </ul>
               </div>
 
-              <div className="mb-4">
-                <span className="text-xs uppercase tracking-widest text-mist-500 block mb-1">Drone Modes Loop</span>
-                <div className="font-mono text-[10px] text-white bg-charcoal-950/50 p-2.5 rounded border border-white/5 flex flex-wrap gap-1.5 justify-center">
+              <div className="mb-3">
+                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Drone Modes Loop</span>
+                <div className="font-mono text-[9px] text-white bg-charcoal-950/50 p-2 rounded border border-white/5 flex flex-wrap gap-1 justify-center">
                   <span className="text-mist-400">IDLE</span> ➔ 
                   <span className="text-gold-400">TAKEOFF</span> ➔ 
                   <span className="text-sky-400">FIELD SCAN</span> ➔ 
