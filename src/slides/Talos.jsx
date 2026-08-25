@@ -68,7 +68,7 @@ export default function Talos() {
       title="🤖 TALOS"
       subtitle="AGROBOT 360 — ground truth, gathered without a single footstep from the farmer."
     >
-      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[1fr_380px]">
+      <div className="grid h-full grid-cols-1 gap-4 lg:grid-cols-[1fr_480px]">
         <div className="relative overflow-hidden rounded-md border border-mist-500/15">
           <FarmScene variant="topdown" className="h-full w-full">
             <polyline
@@ -115,20 +115,20 @@ export default function Talos() {
             <MetricCard label="Payload" value="Arm Active" accent="field" />
           </div>
           
-          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-4 flex-grow overflow-y-auto scrollbar-none relative space-y-4">
+          <div className="rounded-md border border-mist-500/15 bg-charcoal-900/60 p-5 flex-grow overflow-y-auto scrollbar-none relative space-y-5">
             
             {/* Phase 6 — TALOS — Ground Agribot */}
             <div>
-              <h4 className="font-mono text-xs uppercase tracking-widest text-field-400 mb-2.5 border-b border-white/10 pb-1.5">🤖 TALOS — Ground Robot</h4>
+              <h4 className="font-mono text-sm uppercase tracking-widest text-field-400 mb-3 border-b border-white/10 pb-2">🤖 TALOS — Ground Robot</h4>
               
-              <div className="mb-3">
-                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Purpose</span>
-                <p className="text-xs text-mist-200">Performs precise ground-level crop inspection, sensing, and targeted crop interventions.</p>
+              <div className="mb-4">
+                <span className="text-[11px] uppercase tracking-widest text-mist-500 block mb-1">Purpose</span>
+                <p className="text-sm text-mist-200 leading-relaxed font-light">Performs precise ground-level crop inspection, sensing, and targeted crop interventions.</p>
               </div>
 
-              <div className="mb-3">
-                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Hardware Representation</span>
-                <ul className="text-xs text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+              <div className="mb-4">
+                <span className="text-[11px] uppercase tracking-widest text-mist-500 block mb-1">Hardware Representation</span>
+                <ul className="text-sm text-mist-200 space-y-1.5 ml-4 list-disc marker:text-mist-500 font-light">
                   <li><strong>Chassis:</strong> Heavy-duty four-wheel drive or track-tread system.</li>
                   <li><strong>Sensors:</strong> Inspection HD camera + soil sensor probes.</li>
                   <li><strong>Arm:</strong> Robotic manipulator arm concept for targeted spot interventions.</li>
@@ -136,9 +136,9 @@ export default function Talos() {
                 </ul>
               </div>
 
-              <div className="mb-3">
-                <span className="text-[10px] uppercase tracking-widest text-mist-500 block mb-0.5">Core Functions</span>
-                <ul className="text-xs text-mist-200 space-y-1 ml-4 list-disc marker:text-mist-500">
+              <div className="mb-4">
+                <span className="text-[11px] uppercase tracking-widest text-mist-500 block mb-1">Core Functions</span>
+                <ul className="text-sm text-mist-200 space-y-1.5 ml-4 list-disc marker:text-mist-500 font-light">
                   <li>Autonomous row-by-row navigation & obstacle dodging.</li>
                   <li>Plant-level visual crop health check.</li>
                   <li>Deep-soil chemical / moisture diagnostics.</li>
